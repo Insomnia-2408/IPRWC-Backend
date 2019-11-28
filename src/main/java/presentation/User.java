@@ -4,9 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
+import java.security.Principal;
 import java.util.List;
 
-public class User {
+public class User implements Principal {
 
     //Variables
     private int clientID;
@@ -105,4 +106,5 @@ public class User {
     public void setBills(List<Bill> bills) {
         this.bills = bills;
     }
+
 }
