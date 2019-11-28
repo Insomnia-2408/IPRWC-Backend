@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
 
-public class CarService {
+public class ServiceForCar {
 
     //Variables
     private int carServiceID;
@@ -14,7 +14,7 @@ public class CarService {
 
     //JsonCreator
     @JsonCreator
-    public CarService(
+    public ServiceForCar(
             @JsonProperty("carServiceID") int carServiceID,
             @JsonProperty("description") String description,
             @JsonProperty("price") double price

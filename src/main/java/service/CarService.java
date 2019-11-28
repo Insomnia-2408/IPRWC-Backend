@@ -19,7 +19,7 @@ public class CarService implements Service {
         return null;
     }
 
-    public Car getByID() {
+    public Car getByID(long id) {
         return null;
     }
 

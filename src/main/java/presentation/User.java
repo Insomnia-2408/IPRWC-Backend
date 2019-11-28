@@ -15,7 +15,7 @@ public class User implements Principal {
     private String email;
     private String address;
     private List<Order> orders;
-    private List<CarService> carServices;
+    private List<ServiceForCar> carServices;
     private List<Bill> bills;
 
     //JsonCreator
@@ -26,7 +26,7 @@ public class User implements Principal {
             @JsonProperty("email") String email,
             @JsonProperty("address") String address,
             @JsonProperty("orders") List<Order> orders,
-            @JsonProperty("carServices") List<CarService> carServices,
+            @JsonProperty("carServices") List<ServiceForCar> carServices,
             @JsonProperty("bills") List<Bill> bills
     ) {
 
@@ -90,11 +90,11 @@ public class User implements Principal {
     }
 
     @JsonProperty
-    public List<CarService> getCarServices() {
+    public List<ServiceForCar> getCarServices() {
         return carServices;
     }
 
-    public void setCarServices(List<CarService> carServices) {
+    public void setCarServices(List<ServiceForCar> carServices) {
         this.carServices = carServices;
     }
 

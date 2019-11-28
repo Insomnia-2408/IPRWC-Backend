@@ -6,7 +6,7 @@ public interface Resource {
 
     List index();
     Object post();
-    Object get();
+    Object getByID(long id);
     Object put();
     Object delete();
 

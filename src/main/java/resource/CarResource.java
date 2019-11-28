@@ -1,9 +1,13 @@
 package resource;
 
 import presentation.Car;
-import presentation.CarService;
+import service.CarService;
 
 import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import java.util.List;
 
 public class CarResource implements Resource {
@@ -15,16 +19,20 @@ public class CarResource implements Resource {
         this.service = service;
     }
 
+    @GET
     public List index() {
-        return null;
+        return service.list();
     }
 
+    @PUT
     public Car post() {
-        return null;
+        return service.update();
     }
 
-    public Car get() {
-        return null;
+    @GET
+    @Path("/{id}")
+    public Car getByID(@PathParam("id") long id) {
+        return service.getByID(id);
     }
 
     public Car put() {

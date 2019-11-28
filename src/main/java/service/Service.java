@@ -5,7 +5,7 @@ import java.util.List;
 public interface Service {
 
     List list();
-    Object getByID();
+    Object getByID(long id);
     Object deleteByID();
     Object update();
 
