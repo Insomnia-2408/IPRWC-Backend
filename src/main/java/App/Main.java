@@ -1,3 +1,5 @@
+package App;
+
 import io.dropwizard.Application;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.forms.MultiPartBundle;
@@ -21,6 +23,9 @@ public class Main extends Application<ApiConfiguration> {
 
     @Override
     public void initialize(Bootstrap<ApiConfiguration> bootstrap) {
+        System.out.println(
+                getClass().getPackage()
+        );
         bootstrap.addBundle(new MultiPartBundle());
         bootstrap.addBundle(GuiceBundle.builder()
                 .enableAutoConfig(getClass().getPackage().getName())

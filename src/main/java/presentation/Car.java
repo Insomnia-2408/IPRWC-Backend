@@ -93,6 +93,7 @@ public class Car {
     }
 
     //Variables
+    private long id;
     private CarType carType;
     private String brand;
     private int mileage;
@@ -115,6 +116,7 @@ public class Car {
     //JsonCreator
     @JsonCreator
     public Car(
+            @JsonProperty("id") long id,
             @JsonProperty("carType") CarType carType,
             @JsonProperty("brand") String brand,
             @JsonProperty("mileage") int mileage,
@@ -135,6 +137,7 @@ public class Car {
             @JsonProperty("imagePath") String imagePath
             ) {
 
+        this.id = id;
         this.carType = carType;
         this.brand = brand;
         this.mileage = mileage;
@@ -157,6 +160,12 @@ public class Car {
     }
 
     //Getters and setters
+    @JsonProperty
+    @NotNull
+    public long getID() {
+        return this.id;
+    }
+
     @JsonProperty
     @NotNull
     public CarType getCarType() {

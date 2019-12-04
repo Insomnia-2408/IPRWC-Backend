@@ -1,13 +1,14 @@
 package resource;
 
+import javax.ws.rs.core.Response;
 import java.util.List;
 
-public interface Resource {
+public interface Resource<T> {
 
     List index();
-    Object post();
-    Object getByID(long id);
-    Object put();
-    Object delete();
+    T getByID(long id);
+    Response post(T object);
+    Response put(T object);
+    Response delete(long id);
 
 }

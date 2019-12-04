@@ -1,12 +1,14 @@
 package persistence;
 
+import javax.ws.rs.core.Response;
 import java.util.List;
 
-public interface DAO {
+public interface DAO<T> {
 
     List list();
-    Object getByID();
-    Object deleteByID();
-    Object update();
+    T getByID(long id);
+    boolean deleteByID(long id);
+    boolean update(T object);
+    boolean post(T object);
 
 }
