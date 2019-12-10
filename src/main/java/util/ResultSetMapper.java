@@ -1,6 +1,6 @@
 package util;
 
-import presentation.Car;
+import presentation.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,6 +10,7 @@ import java.util.List;
 public class ResultSetMapper {
 
     public static Car mapToCar(ResultSet rs) throws SQLException {
+
         long id = rs.getLong("id");
         String carType = rs.getString("car_type");
         String brand = rs.getString("brand");
@@ -33,6 +34,21 @@ public class ResultSetMapper {
         return new Car(id, Car.CarType.valueOf(carType), brand, mileage, options, Car.Transmission.valueOf(transmission),
                 Car.FuelType.valueOf(fuelType), buildYear, doors, model, numberplate, Car.BodyType.valueOf(bodyType),
                 motorType, horsepower, seats, gears, Car.EnergyLabel.valueOf(energyLabel), APK, imagePath);
+
+    }
+
+    public static User mapToUser(ResultSet rs) throws SQLException {
+
+        int clientID = rs.getInt("client_ID");
+        String name = rs.getString("name");
+        String email = rs.getString("email");
+        String address = rs.getString("adres");
+        List<Order> orders = (List<Order>) rs.getArray("orders");
+        List<ServiceForCar> services = (List<ServiceForCar>) rs.getArray("services");
+        List<Bill> bills = (List<Bill>) rs.getArray("bills");
+
+        return new User(clientID, name, email, address, orders, services, bills);
+
     }
 
 }

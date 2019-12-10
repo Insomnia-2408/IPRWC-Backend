@@ -11,10 +11,7 @@ import java.util.List;
 
 public class CarDAO implements DAO<Car> {
 
-    private PreparedStatement list;
-    private PreparedStatement getById;
-    private PreparedStatement deleteById;
-    private PreparedStatement update;
+    private PreparedStatement statement;
     private DatabaseConnector databaseConnector = DatabaseConnector.getInstance();
 
     public List list() {
@@ -24,8 +21,8 @@ public class CarDAO implements DAO<Car> {
         try {
 
             Connection conn = databaseConnector.getConnection();
-            list = conn.prepareStatement("SELECT * FROM car");
-            ResultSet rs = list.executeQuery();
+            statement = conn.prepareStatement("SELECT * FROM car");
+            ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
                 carList.add(ResultSetMapper.mapToCar(rs));
@@ -47,21 +44,20 @@ public class CarDAO implements DAO<Car> {
         try {
 
             Connection conn = databaseConnector.getConnection();
-            getById = conn.prepareStatement("SELECT * FROM car WHERE id=?");
-            getById.setLong(1, id);
-            ResultSet rs = getById.executeQuery();
+            statement = conn.prepareStatement("SELECT * FROM car WHERE id=?");
+            statement.setLong(1, id);
+            ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
                 car = ResultSetMapper.mapToCar(rs);
             }
 
             conn.close();
-            return car;
 
         } catch (SQLException e) {
             e.getMessage();
         }
-        return null;
+        return car;
     }
 
     public boolean deleteByID(long id) {
@@ -69,9 +65,9 @@ public class CarDAO implements DAO<Car> {
         try {
 
             Connection conn = databaseConnector.getConnection();
-            deleteById = conn.prepareStatement("DELETE FROM car WHERE id=?");
-            deleteById.setLong(1, id);
-            ResultSet rs = deleteById.executeQuery();
+            statement = conn.prepareStatement("DELETE FROM car WHERE id=?");
+            statement.setLong(1, id);
+            ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
                 return true;
@@ -90,31 +86,31 @@ public class CarDAO implements DAO<Car> {
         try {
 
             Connection conn = databaseConnector.getConnection();
-            update = conn.prepareStatement("UPDATE car " +
+            statement = conn.prepareStatement("UPDATE car " +
                     "SET "+ "carType=? " + "brand=? " + "mileage=? " + "options=? " + "transmission=? " +
                     "fuelType=? " + "buildYear=? " + "doors=? " + "model=? " + "numberplate=? " + "bodyType=? " +
                     "motorType=? " + "horsepower=? " + "seats=? " + "gears=? " + "energyLabel=? " + "APK=? " +
                     "imagePath=? " + "WHERE id=?");
 
-            update.setString(1, car.getCarType().toString());
-            update.setString(2, car.getBrand());
-            update.setInt(3, car.getMileage());
-            update.setArray(4, (Array) car.getOptions());
-            update.setString(5, car.getTransmission().toString());
-            update.setString(6, car.getFuelType().toString());
-            update.setInt(7, car.getBuildYear());
-            update.setInt(8, car.getDoors());
-            update.setString(9, car.getModel());
-            update.setString(10, car.getNumberplate());
-            update.setString(11, car.getBodyType().toString());
-            update.setString(12, car.getMotorType());
-            update.setInt(13, car.getHorsepower());
-            update.setInt(14, car.getSeats());
-            update.setInt(15, car.getGears());
-            update.setString(16, car.getEnergyLabel().toString());
-            update.setTimestamp(17, (Timestamp) car.getAPK());
-            update.setString(18, car.getImagePath());
-            update.setLong(19, car.getID());
+            statement.setString(1, car.getCarType().toString());
+            statement.setString(2, car.getBrand());
+            statement.setInt(3, car.getMileage());
+            statement.setArray(4, (Array) car.getOptions());
+            statement.setString(5, car.getTransmission().toString());
+            statement.setString(6, car.getFuelType().toString());
+            statement.setInt(7, car.getBuildYear());
+            statement.setInt(8, car.getDoors());
+            statement.setString(9, car.getModel());
+            statement.setString(10, car.getNumberplate());
+            statement.setString(11, car.getBodyType().toString());
+            statement.setString(12, car.getMotorType());
+            statement.setInt(13, car.getHorsepower());
+            statement.setInt(14, car.getSeats());
+            statement.setInt(15, car.getGears());
+            statement.setString(16, car.getEnergyLabel().toString());
+            statement.setTimestamp(17, (Timestamp) car.getAPK());
+            statement.setString(18, car.getImagePath());
+            statement.setLong(19, car.getID());
 
             conn.close();
             return true;
