@@ -1,39 +1,39 @@
 package service;
 
-import persistence.CarDAO;
-import presentation.Car;
+import persistence.UserDAO;
+import presentation.User;
 
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-public class CarService implements Service<Car> {
+public class UserService implements Service<User> {
 
-    private final CarDAO carDAO;
+    private final UserDAO userDAO;
 
     @Inject
-    public CarService(CarDAO carDAO) {
-        this.carDAO = carDAO;
+    public UserService(UserDAO userDAO) {
+        this.userDAO = userDAO;
     }
 
     public List list() {
-        return carDAO.list();
+        return userDAO.list();
     }
 
-    public Car getByID(long id) {
-        return carDAO.getByID(id);
+    public User getByID(long id) {
+        return userDAO.getByID(id);
     }
 
-    public Response create(Car car) {
-        if(carDAO.create(car)) {
+    public Response create(User user) {
+        if(userDAO.create(user)) {
             return Response.ok().build();
         } else {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-    public Response update(Car car) {
-        if(carDAO.update(car)) {
+    public Response update(User user) {
+        if(userDAO.update(user)) {
             return Response.ok().build();
         } else {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
@@ -41,11 +41,10 @@ public class CarService implements Service<Car> {
     }
 
     public Response deleteByID(long id) {
-        if(carDAO.deleteByID(id)) {
+        if(userDAO.deleteByID(id)) {
             return Response.ok().build();
         } else {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
-
 }
