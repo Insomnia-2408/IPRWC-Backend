@@ -9,6 +9,7 @@ public interface DAO<T> {
     T getByID(long id);
     boolean deleteByID(long id);
     boolean update(T object);
-    boolean post(T object);
+    boolean create(T object);
+    long getHighestID();
 
 }

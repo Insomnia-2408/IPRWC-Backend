@@ -39,7 +39,7 @@ public class ResultSetMapper {
 
     public static User mapToUser(ResultSet rs) throws SQLException {
 
-        int clientID = rs.getInt("client_ID");
+        int id = rs.getInt("id");
         String name = rs.getString("name");
         String email = rs.getString("email");
         String address = rs.getString("adres");
@@ -47,7 +47,7 @@ public class ResultSetMapper {
         List<ServiceForCar> services = (List<ServiceForCar>) rs.getArray("services");
         List<Bill> bills = (List<Bill>) rs.getArray("bills");
 
-        return new User(clientID, name, email, address, orders, services, bills);
+        return new User(id, name, email, address, orders, services, bills);
 
     }
 

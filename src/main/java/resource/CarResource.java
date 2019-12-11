@@ -32,7 +32,7 @@ public class CarResource implements Resource<Car> {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response post(Car car) {
-        return service.post(car);
+        return service.create(car);
     }
 
     @PUT

@@ -112,8 +112,13 @@ public class CarDAO implements DAO<Car> {
             statement.setString(18, car.getImagePath());
             statement.setLong(19, car.getID());
 
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                return true;
+            }
+
             conn.close();
-            return true;
 
         }catch (SQLException e) {
             e.getMessage();
@@ -121,8 +126,63 @@ public class CarDAO implements DAO<Car> {
         return false;
     }
 
-    @Override
-    public boolean post(Car car) {
+    public boolean create(Car car) {
+
+        try {
+
+            Connection conn = databaseConnector.getConnection();
+            statement = conn.prepareStatement("INSERT INTO car VALUES (" +
+                    "?, " + "?, " + "?, " + "?, " + "?, " + "?, " + "?, " + "?, " + "?, " + "?, " + "?, " + "?, " +
+                    "?, " + "?, " + "?, " + "?, " + "?, " + "?, " + "?, " + ")");
+            statement.setLong(1, car.getID());
+            statement.setString(2, car.getCarType().toString());
+            statement.setString(3, car.getBrand());
+            statement.setInt(4, car.getMileage());
+            statement.setArray(5, (Array) car.getOptions());
+            statement.setString(6, car.getTransmission().toString());
+            statement.setString(7, car.getFuelType().toString());
+            statement.setInt(8, car.getBuildYear());
+            statement.setInt(9, car.getDoors());
+            statement.setString(10, car.getModel());
+            statement.setString(11, car.getNumberplate());
+            statement.setString(12, car.getBodyType().toString());
+            statement.setString(13, car.getMotorType());
+            statement.setInt(14, car.getHorsepower());
+            statement.setInt(15, car.getSeats());
+            statement.setInt(16, car.getGears());
+            statement.setString(17, car.getEnergyLabel().toString());
+            statement.setDate(18, (Date) car.getAPK());
+            statement.setString(19, car.getImagePath());
+
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                return true;
+            }
+
+            conn.close();
+
+        } catch (SQLException e) {
+            e.getMessage();
+        }
         return false;
+    }
+
+    public long getHighestID() {
+
+        try {
+
+            Connection conn = databaseConnector.getConnection();
+            statement = conn.prepareStatement("SELECT MAX(id) FROM car");
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                return rs.getInt("id");
+            }
+
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+        return 0;
     }
 }

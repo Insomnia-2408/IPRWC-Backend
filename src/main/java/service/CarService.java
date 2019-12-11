@@ -24,8 +24,8 @@ public class CarService implements Service<Car> {
         return carDAO.getByID(id);
     }
 
-    public Response post(Car car) {
-        if(carDAO.post(car)) {
+    public Response create(Car car) {
+        if(carDAO.create(car)) {
             return Response.ok().build();
         }
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
