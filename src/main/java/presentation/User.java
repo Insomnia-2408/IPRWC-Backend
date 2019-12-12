@@ -10,7 +10,7 @@ import java.util.List;
 public class User implements Principal {
 
     //Variables
-    private int clientID;
+    private long clientID;
     private String name;
     private String email;
     private String password;
@@ -23,7 +23,7 @@ public class User implements Principal {
     //JsonCreator
     @JsonCreator
     public User(
-            @JsonProperty("client_ID") int clientID,
+            @JsonProperty("client_ID") long clientID,
             @JsonProperty("name") String name,
             @JsonProperty("email") String email,
             @JsonProperty("password") String password,
@@ -49,11 +49,11 @@ public class User implements Principal {
     //Getters and setters
     @JsonProperty
     @NotNull
-    public int getClientID() {
+    public long getClientID() {
         return clientID;
     }
 
-    public void setClientID(int clientID) {
+    public void setClientID(long clientID) {
         this.clientID = clientID;
     }
 

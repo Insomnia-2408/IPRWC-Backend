@@ -3,8 +3,10 @@ package persistence;
 import presentation.Credentials;
 import presentation.User;
 import util.DatabaseConnector;
+import util.Hash;
 import util.ResultSetMapper;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,16 +16,17 @@ public class UserDAO implements DAO<User> {
     private PreparedStatement statement;
     private DatabaseConnector databaseConnector = DatabaseConnector.getInstance();
 
-    public User getAuthorization(Credentials credentials) {
+    public User getAuthorization(Credentials credentials) throws NoSuchAlgorithmException {
 
         User user = null;
+        String hashedPassword = Hash.hash(credentials.getPassword());
 
         try {
 
             Connection conn = databaseConnector.getConnection();
             statement = conn.prepareStatement("SELECT * FROM user WHERE email=? AND password=?");
             statement.setString(1, credentials.getEmail());
-            statement.setString(2, credentials.getPassword());
+            statement.setString(2, hashedPassword);
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {

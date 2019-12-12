@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.security.NoSuchAlgorithmException;
 
 @Path("/auth")
 public class AuthenticationResource {
@@ -20,9 +21,9 @@ public class AuthenticationResource {
     }
 
     @GET
-    @Path("/login/")
+    @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response onLogin(@NotNull Credentials credentials) {
+    public Response onLogin(@NotNull Credentials credentials) throws NoSuchAlgorithmException {
         return service.onLogin(credentials);
     }
 

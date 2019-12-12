@@ -1,5 +1,6 @@
 package persistence;
 
+import presentation.User;
 import util.DatabaseConnector;
 
 import java.sql.Connection;
@@ -12,19 +13,19 @@ public class AuthenticationDAO {
     private PreparedStatement statement;
     private DatabaseConnector databaseConnector = DatabaseConnector.getInstance();
 
-    public String getToken(long clientID) {
+    public long getTokenUser(String token) {
 
-        String token = null;
+        long id = 0;
 
         try {
 
             Connection conn = databaseConnector.getConnection();
-            statement = conn.prepareStatement("SELECT token FROM session WHERE client_id=?");
-            statement.setLong(1, clientID);
+            statement = conn.prepareStatement("SELECT user_id FROM session WHERE token=?");
+            statement.setString(1, token);
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                token = rs.getString("token");
+                id = rs.getLong("id");
             }
 
             conn.close();
@@ -32,7 +33,7 @@ public class AuthenticationDAO {
         } catch (SQLException e) {
             e.getMessage();
         }
-        return token;
+        return id;
     }
 
     public boolean setToken(long id, String token) {

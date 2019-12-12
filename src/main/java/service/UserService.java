@@ -2,6 +2,7 @@ package service;
 
 import persistence.UserDAO;
 import presentation.User;
+import util.Hash;
 
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
@@ -30,10 +31,8 @@ public class UserService implements Service<User> {
 
     public Response create(User user) throws NoSuchAlgorithmException {
 
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        byte[] hash = digest.digest(user.getPassword().getBytes(StandardCharsets.UTF_8));
-
-        user.setPassword(Arrays.toString(hash));
+        user.setClientID(userDAO.getHighestID() + 1);
+        user.setPassword(Hash.hash(user.getPassword()));
 
         if(userDAO.create(user)) {
             return Response.ok().build();

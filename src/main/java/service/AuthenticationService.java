@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
 import javax.ws.rs.core.Response;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.UUID;
 
@@ -25,7 +26,18 @@ public class AuthenticationService {
         this.userDAO = userDAO;
     }
 
-    public Response onLogin(@NotNull Credentials credentials) {
+    public long checkToken(String token) {
+
+        long clientID = authenticationDAO.getTokenUser(token);
+
+        if(clientID != 0) {
+            return clientID;
+        } else {
+            return 0;
+        }
+    }
+
+    public Response onLogin(@NotNull Credentials credentials) throws NoSuchAlgorithmException {
 
         User user = null;
 
@@ -41,7 +53,9 @@ public class AuthenticationService {
     private Response verifyFoundUser(User user) {
 
         if(user != null && user.getUserRole() != UserRole.UNVERIFIED) {
-            return Response.ok().build();
+            String token = createToken();
+            authenticationDAO.setToken(user.getClientID(), token);
+            return Response.ok(token).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
@@ -54,6 +68,14 @@ public class AuthenticationService {
                 + new Date();
 
         return token;
+    }
+
+    public boolean isAuthorized(String token, UserRole userRole) {
+
+        long clientID = checkToken(token);
+        User user = userDAO.getByID(clientID);
+        return user.getUserRole().equals(userRole);
+
     }
 
 }

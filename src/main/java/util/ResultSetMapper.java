@@ -9,6 +9,8 @@ import java.util.List;
 
 public class ResultSetMapper {
 
+    //TODO: FIX ARRAYS!!!
+
     public static Car mapToCar(ResultSet rs) throws SQLException {
 
         long id = rs.getLong("id");
@@ -39,7 +41,7 @@ public class ResultSetMapper {
 
     public static User mapToUser(ResultSet rs) throws SQLException {
 
-        int id = rs.getInt("id");
+        long id = rs.getLong("id");
         String name = rs.getString("name");
         String email = rs.getString("email");
         String password = rs.getString("password");
@@ -50,6 +52,16 @@ public class ResultSetMapper {
         String userRole = rs.getString("user_role");
 
         return new User(id, name, email, password, address, orders, services, bills, UserRole.valueOf(userRole));
+
+    }
+
+    public static Shoppingcart mapToCart(ResultSet rs) throws SQLException {
+
+        long clientID = rs.getLong("client_id");
+        List<Object> products = (List<Object>) rs.getArray("products");
+        double price = rs.getDouble("price");
+
+        return new Shoppingcart(clientID, products, price);
 
     }
 
