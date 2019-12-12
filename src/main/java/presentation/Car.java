@@ -11,84 +11,33 @@ public class Car {
 
     //Enums
     public enum CarType {
-        
-        
-        NEW("N"), OCCASION("O"), SHOWMODEL("S");
-        
-        private String carType;
-        
-        CarType(String carType) {
-            this.carType = carType;
-        }
-        
-        public String getCarType() {
-            return carType;
-        }
+
+        NEW, OCCASION, SHOWMODEL
         
     }
 
     public enum Transmission {
 
-        AUTOMATIC("A"), SEMI_AUTOMATIC("SA"), MANUAL("M");
-
-        private String transmission;
-
-        Transmission(String transmission) {
-            this.transmission = transmission;
-        }
-
-        public String getTransmission() {
-            return transmission;
-        }
+        AUTOMATIC, SEMI_AUTOMATIC, MANUAL
 
     }
 
     public enum FuelType {
 
 
-        GASOLINE("G"), DIESEL("D"), ELECTRIC("E"), HYDROGEN("H");
-
-        private String fuelType;
-
-        FuelType(String fuelType) {
-            this.fuelType = fuelType;
-        }
-
-        public String getFuelType() {
-            return fuelType;
-        }
+        GASOLINE, DIESEL, ELECTRIC, HYDROGEN
 
     }
 
     public enum BodyType {
 
-        HATCHBACK("H"), MPV("M"), SEDAN("S"), STATIONWAGON("SW"), COUPE("C"), CABRIOLET("CB"), SUV("SUV"), REMAINING("R");
-
-        private String bodyType;
-
-        BodyType(String bodyType) {
-            this.bodyType = bodyType;
-        }
-
-        public String getBodyType() {
-            return bodyType;
-        }
+        HATCHBACK, MPV, SEDAN, STATIONWAGON, COUPE, CABRIOLET, SUV, REMAINING
 
     }
 
     public enum EnergyLabel {
 
-        A("A"), B("B"), C("C"), D("D"), E("E"), F("F"), G("G");
-
-        private String energyLabel;
-
-        EnergyLabel(String energyLabel) {
-            this.energyLabel = energyLabel;
-        }
-
-        public String getEnergyLabel() {
-            return energyLabel;
-        }
+        A, B, C, D, E, F, G
 
     }
 
@@ -161,9 +110,12 @@ public class Car {
 
     //Getters and setters
     @JsonProperty
-    @NotNull
     public long getID() {
         return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     @JsonProperty

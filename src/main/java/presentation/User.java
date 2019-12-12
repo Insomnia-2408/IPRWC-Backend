@@ -13,30 +13,36 @@ public class User implements Principal {
     private int clientID;
     private String name;
     private String email;
+    private String password;
     private String address;
     private List<Order> orders;
     private List<ServiceForCar> carServices;
     private List<Bill> bills;
+    private UserRole userRole;
 
     //JsonCreator
     @JsonCreator
     public User(
-            @JsonProperty("clientID") int clientID,
+            @JsonProperty("client_ID") int clientID,
             @JsonProperty("name") String name,
             @JsonProperty("email") String email,
+            @JsonProperty("password") String password,
             @JsonProperty("address") String address,
             @JsonProperty("orders") List<Order> orders,
             @JsonProperty("carServices") List<ServiceForCar> carServices,
-            @JsonProperty("bills") List<Bill> bills
+            @JsonProperty("bills") List<Bill> bills,
+            @JsonProperty("user_role") UserRole userRole
     ) {
 
         this.clientID = clientID;
         this.name = name;
         this.email = email;
+        this.password = password;
         this.address = address;
         this.orders = orders;
         this.carServices = carServices;
         this.bills = bills;
+        this.userRole = userRole;
 
     }
 
@@ -69,6 +75,16 @@ public class User implements Principal {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @JsonProperty
+    @NotNull
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @JsonProperty
@@ -105,6 +121,16 @@ public class User implements Principal {
 
     public void setBills(List<Bill> bills) {
         this.bills = bills;
+    }
+
+    @JsonProperty
+    @NotNull
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 
 }

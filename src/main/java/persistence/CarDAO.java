@@ -34,7 +34,7 @@ public class CarDAO implements DAO<Car> {
         } catch (SQLException e) {
             e.getMessage();
         }
-        return null;
+        return carList;
     }
 
     public Car getByID(long id) {
@@ -62,6 +62,8 @@ public class CarDAO implements DAO<Car> {
 
     public boolean deleteByID(long id) {
 
+        boolean succes = false;
+
         try {
 
             Connection conn = databaseConnector.getConnection();
@@ -70,7 +72,7 @@ public class CarDAO implements DAO<Car> {
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                return true;
+                succes = true;
             }
 
             conn.close();
@@ -78,10 +80,12 @@ public class CarDAO implements DAO<Car> {
         } catch (SQLException e) {
             e.getMessage();
         }
-        return false;
+        return succes;
     }
 
     public boolean update(Car car) {
+
+        boolean succes = false;
 
         try {
 
@@ -115,7 +119,7 @@ public class CarDAO implements DAO<Car> {
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                return true;
+                succes = true;
             }
 
             conn.close();
@@ -123,10 +127,12 @@ public class CarDAO implements DAO<Car> {
         }catch (SQLException e) {
             e.getMessage();
         }
-        return false;
+        return succes;
     }
 
     public boolean create(Car car) {
+
+        boolean succes = false;
 
         try {
 
@@ -157,7 +163,7 @@ public class CarDAO implements DAO<Car> {
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                return true;
+                succes = true;
             }
 
             conn.close();
@@ -165,10 +171,12 @@ public class CarDAO implements DAO<Car> {
         } catch (SQLException e) {
             e.getMessage();
         }
-        return false;
+        return succes;
     }
 
     public long getHighestID() {
+
+        long id = 0;
 
         try {
 
@@ -177,12 +185,12 @@ public class CarDAO implements DAO<Car> {
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                return rs.getInt("id");
+                id = rs.getInt("id");
             }
 
         } catch (SQLException e) {
             e.getMessage();
         }
-        return 0;
+        return id;
     }
 }

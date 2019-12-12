@@ -1,5 +1,6 @@
 package persistence;
 
+import presentation.Credentials;
 import presentation.User;
 import util.DatabaseConnector;
 import util.ResultSetMapper;
@@ -13,15 +14,16 @@ public class UserDAO implements DAO<User> {
     private PreparedStatement statement;
     private DatabaseConnector databaseConnector = DatabaseConnector.getInstance();
 
-    public User getByEmailAddress(String email) {
+    public User getAuthorization(Credentials credentials) {
 
         User user = null;
 
         try {
 
             Connection conn = databaseConnector.getConnection();
-            statement = conn.prepareStatement("SELECT * FROM user WHERE email=?");
-            statement.setString(1, email);
+            statement = conn.prepareStatement("SELECT * FROM user WHERE email=? AND password=?");
+            statement.setString(1, credentials.getEmail());
+            statement.setString(2, credentials.getPassword());
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
@@ -83,6 +85,8 @@ public class UserDAO implements DAO<User> {
 
     public boolean deleteByID(long id) {
 
+        boolean succes = false;
+
         try {
 
             Connection conn = databaseConnector.getConnection();
@@ -91,7 +95,7 @@ public class UserDAO implements DAO<User> {
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                return true;
+                succes = true;
             }
 
             conn.close();
@@ -99,10 +103,12 @@ public class UserDAO implements DAO<User> {
         } catch (SQLException e) {
             e.getMessage();
         }
-        return false;
+        return succes;
     }
 
     public boolean update(User user) {
+
+        boolean succes = false;
 
         try{
 
@@ -119,7 +125,7 @@ public class UserDAO implements DAO<User> {
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                return true;
+                succes = true;
             }
 
             conn.close();
@@ -127,10 +133,12 @@ public class UserDAO implements DAO<User> {
         } catch (SQLException e) {
             e.getMessage();
         }
-        return false;
+        return succes;
     }
 
     public boolean create(User user) {
+
+        boolean succes = false;
 
         try {
 
@@ -146,7 +154,7 @@ public class UserDAO implements DAO<User> {
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                return true;
+                succes = true;
             }
 
             conn.close();
@@ -155,10 +163,12 @@ public class UserDAO implements DAO<User> {
             e.getMessage();
         }
 
-        return false;
+        return succes;
     }
 
     public long getHighestID() {
+
+        long id = 0;
 
         try {
 
@@ -167,7 +177,7 @@ public class UserDAO implements DAO<User> {
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                return rs.getInt("id");
+                id = rs.getInt("id");
             }
 
             conn.close();
@@ -175,6 +185,6 @@ public class UserDAO implements DAO<User> {
         } catch (SQLException e) {
             e.getMessage();
         }
-        return 0;
+        return id;
     }
 }

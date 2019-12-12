@@ -25,6 +25,9 @@ public class CarService implements Service<Car> {
     }
 
     public Response create(Car car) {
+        long id = carDAO.getHighestID() + 1;
+        car.setId(id);
+
         if(carDAO.create(car)) {
             return Response.ok().build();
         } else {

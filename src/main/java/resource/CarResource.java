@@ -9,13 +9,14 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
+@Path("/cars")
 public class CarResource implements Resource<Car> {
 
     private final CarService service;
 
     @Inject
-    public CarResource(CarService service) {
-        this.service = service;
+    public CarResource(CarService carService) {
+        this.service = carService;
     }
 
     @GET
