@@ -9,8 +9,9 @@ import java.util.List;
 public class Lamp {
 
     //Variables
-    private int lampID;
-    private List<String> compatibleWith;
+    private long lampID;
+    private ProductType productType = ProductType.LAMP;
+    private String description;
     private int stock;
     private double price;
     private String imagePath;
@@ -18,15 +19,15 @@ public class Lamp {
     //JsonCreator
     @JsonCreator
     public Lamp(
-            @JsonProperty("lampID") int lampID,
-            @JsonProperty("compatibleWith") List<String> compatibleWith,
+            @JsonProperty("lamp_id") long lampID,
+            @JsonProperty("description") String description,
             @JsonProperty("stock") int stock,
             @JsonProperty("price") double price,
-            @JsonProperty("imagePath") String imagePath
+            @JsonProperty("image_path") String imagePath
     ) {
 
         this.lampID = lampID;
-        this.compatibleWith = compatibleWith;
+        this.description = description;
         this.stock = stock;
         this.price = price;
         this.imagePath = imagePath;
@@ -36,22 +37,26 @@ public class Lamp {
     //Getters and setters
     @JsonProperty
     @NotNull
-    public int getLampID() {
+    public long getLampID() {
         return lampID;
     }
 
-    public void setLampID(int lampID) {
+    public void setLampID(long lampID) {
         this.lampID = lampID;
+    }
+
+    public ProductType getProductType() {
+        return this.productType;
     }
 
     @JsonProperty
     @NotNull
-    public List<String> getCompatibleWith() {
-        return compatibleWith;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCompatibleWith(List<String> compatibleWith) {
-        this.compatibleWith = compatibleWith;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @JsonProperty

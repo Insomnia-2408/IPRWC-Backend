@@ -6,11 +6,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-public class Brake {
+public class Brake implements Product {
 
     //Variables
-    private int brakeID;
-    private List<String> compatibleWith;
+    private long brakeID;
+    private ProductType productType = ProductType.BRAKE;
+    private String description;
     private int stock;
     private double price;
     private String imagePath;
@@ -18,15 +19,15 @@ public class Brake {
     //JsonCreator
     @JsonCreator
     public Brake(
-            @JsonProperty("brakeID") int brakeID,
-            @JsonProperty("compatibleWith") List<String> compatibleWith,
+            @JsonProperty("brake_id") long brakeID,
+            @JsonProperty("description") String description,
             @JsonProperty("stock") int stock,
             @JsonProperty("price") double price,
-            @JsonProperty("imagePath") String imagePath
+            @JsonProperty("image_path") String imagePath
     ) {
 
         this.brakeID = brakeID;
-        this.compatibleWith = compatibleWith;
+        this.description = description;
         this.stock = stock;
         this.price = price;
         this.imagePath = imagePath;
@@ -36,22 +37,26 @@ public class Brake {
     //Getters and setters
     @JsonProperty
     @NotNull
-    public int getBrakeID() {
+    public long getBrakeID() {
         return brakeID;
     }
 
-    public void setBrakeID(int brakeID) {
+    public void setBrakeID(long brakeID) {
         this.brakeID = brakeID;
+    }
+
+    public ProductType getProductType() {
+        return this.productType;
     }
 
     @JsonProperty
     @NotNull
-    public List<String> getCompatibleWith() {
-        return compatibleWith;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCompatibleWith(List<String> compatibleWith) {
-        this.compatibleWith = compatibleWith;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @JsonProperty

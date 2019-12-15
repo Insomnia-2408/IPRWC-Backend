@@ -70,7 +70,7 @@ public class UserDAO implements DAO<User> {
         try {
 
             Connection conn = databaseConnector.getConnection();
-            statement = conn.prepareStatement("SELECT * FROM user WHERE id=?");
+            statement = conn.prepareStatement("SELECT * FROM user WHERE client_id=?");
             statement.setLong(1, id);
             ResultSet rs = statement.executeQuery();
 
@@ -93,7 +93,7 @@ public class UserDAO implements DAO<User> {
         try {
 
             Connection conn = databaseConnector.getConnection();
-            statement = conn.prepareStatement("DELETE * FROM user WHERE id=?");
+            statement = conn.prepareStatement("DELETE * FROM user WHERE client_id=?");
             statement.setLong(1, id);
             ResultSet rs = statement.executeQuery();
 
@@ -117,7 +117,7 @@ public class UserDAO implements DAO<User> {
 
             Connection conn = databaseConnector.getConnection();
             statement = conn.prepareStatement("UPDATE user SET name=?, email=?, address=?, orders=?, " +
-                    "services=?, bills=? WHERE id=?");
+                    "services=?, bills=? WHERE client_id=?");
             statement.setString(1, user.getName());
             statement.setString(2, user.getEmail());
             statement.setString(3, user.getAddress());
@@ -176,7 +176,7 @@ public class UserDAO implements DAO<User> {
         try {
 
             Connection conn = databaseConnector.getConnection();
-            statement = conn.prepareStatement("SELECT MAX(id) FROM user");
+            statement = conn.prepareStatement("SELECT MAX(client_id) FROM user");
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {

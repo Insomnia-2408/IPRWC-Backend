@@ -44,7 +44,7 @@ public class CarDAO implements DAO<Car> {
         try {
 
             Connection conn = databaseConnector.getConnection();
-            statement = conn.prepareStatement("SELECT * FROM car WHERE id=?");
+            statement = conn.prepareStatement("SELECT * FROM car WHERE car_id=?");
             statement.setLong(1, id);
             ResultSet rs = statement.executeQuery();
 
@@ -67,7 +67,7 @@ public class CarDAO implements DAO<Car> {
         try {
 
             Connection conn = databaseConnector.getConnection();
-            statement = conn.prepareStatement("DELETE FROM car WHERE id=?");
+            statement = conn.prepareStatement("DELETE FROM car WHERE car_id=?");
             statement.setLong(1, id);
             ResultSet rs = statement.executeQuery();
 
@@ -94,7 +94,7 @@ public class CarDAO implements DAO<Car> {
                     "SET "+ "carType=? " + "brand=? " + "mileage=? " + "options=? " + "transmission=? " +
                     "fuelType=? " + "buildYear=? " + "doors=? " + "model=? " + "numberplate=? " + "bodyType=? " +
                     "motorType=? " + "horsepower=? " + "seats=? " + "gears=? " + "energyLabel=? " + "APK=? " +
-                    "imagePath=? " + "WHERE id=?");
+                    "imagePath=? " + "WHERE car_id=?");
 
             statement.setString(1, car.getCarType().toString());
             statement.setString(2, car.getBrand());
@@ -181,7 +181,7 @@ public class CarDAO implements DAO<Car> {
         try {
 
             Connection conn = databaseConnector.getConnection();
-            statement = conn.prepareStatement("SELECT MAX(id) FROM car");
+            statement = conn.prepareStatement("SELECT MAX(car_id) FROM car");
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {

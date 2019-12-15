@@ -20,7 +20,7 @@ public class AuthenticationDAO {
         try {
 
             Connection conn = databaseConnector.getConnection();
-            statement = conn.prepareStatement("SELECT user_id FROM session WHERE token=?");
+            statement = conn.prepareStatement("SELECT client_id FROM session WHERE token=?");
             statement.setString(1, token);
             ResultSet rs = statement.executeQuery();
 
@@ -43,7 +43,7 @@ public class AuthenticationDAO {
         try {
 
             Connection conn = databaseConnector.getConnection();
-            statement = conn.prepareStatement("UPDATE session SET token=? WHERE id=?");
+            statement = conn.prepareStatement("UPDATE session SET token=? WHERE client_id=?");
             statement.setString(1, token);
             statement.setLong(2, id);
             ResultSet rs = statement.executeQuery();

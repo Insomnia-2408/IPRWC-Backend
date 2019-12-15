@@ -1,5 +1,6 @@
 package resource;
 
+import presentation.Product;
 import presentation.UserRole;
 import service.AuthenticationService;
 import service.ShoppingcartService;
@@ -37,9 +38,9 @@ public class ShoppingcartResource {
     @PUT
     @Path("/{token}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response add(@PathParam("token") String token, Object object) {
+    public Response add(@PathParam("token") String token, Product product) {
         if(authentication.isAuthorized(token, UserRole.CUSTOMER)) {
-            return service.add(object);
+            return service.add(authentication.checkToken(token), product);
         }
         return Response.status(Response.Status.UNAUTHORIZED).build();
     }
@@ -47,9 +48,9 @@ public class ShoppingcartResource {
     @DELETE
     @Path("/{token}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam("token") String token, Object object) {
+    public Response delete(@PathParam("token") String token, Product product) {
         if(authentication.isAuthorized(token, UserRole.CUSTOMER)) {
-            return service.delete(object);
+            return service.delete(authentication.checkToken(token), product);
         } else {
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }

@@ -1,6 +1,9 @@
 package service;
 
 import persistence.ShoppingcartDAO;
+import presentation.Car;
+import presentation.Product;
+import presentation.ProductType;
 
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
@@ -19,19 +22,24 @@ public class ShoppingcartService {
         return shoppingcartDAO.getCart(id);
     }
 
-    public Response add(Object object) {
-        if(shoppingcartDAO.add(object)) {
+    public Response add(long clientID, Product product) {
+
+        //TODO: FIX
+
+        if(shoppingcartDAO.add(clientID, product.getClass())) {
             return Response.ok().build();
         } else {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-    public Response delete(Object object) {
-        if(shoppingcartDAO.delete(object)) {
+    public Response delete(long clientID, Product product) {
+
+        if(shoppingcartDAO.delete(clientID, product.getClass())) {
             return Response.ok().build();
         } else {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
+
 }

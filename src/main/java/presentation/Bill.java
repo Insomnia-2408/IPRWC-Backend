@@ -16,10 +16,10 @@ public class Bill {
     //JsonCreator
     @JsonCreator
     public Bill(
-            @JsonProperty("billID") int billID,
+            @JsonProperty("bill_id") int billID,
             @JsonProperty("price") double price,
             @JsonProperty("btw") double btw,
-            @JsonProperty("totalPrice") double totalPrice
+            @JsonProperty("total_price") double totalPrice
     ) {
 
         this.billID = billID;

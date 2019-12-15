@@ -11,24 +11,15 @@ public class Radio {
     //Enums
     public enum RadioSize {
 
-        SINGLE_DIN(1), ONE_AND_A_HALF_DIN(2), DOUBLE_DIN(3);
-
-        private int radioSize;
-
-        RadioSize(int radioSize) {
-            this.radioSize = radioSize;
-        }
-
-        public int getRadioSize() {
-            return radioSize;
-        }
+        SINGLE_DIN, ONE_AND_A_HALF_DIN, DOUBLE_DIN;
 
     }
 
     //Variables
     private int radioID;
+    private ProductType productType = ProductType.RADIO;
     private RadioSize radioSize;
-    private List<String> features;
+    private String features;
     private String description;
     private int stock;
     private double price;
@@ -37,13 +28,13 @@ public class Radio {
     //JsonCreator
     @JsonCreator
     public Radio(
-            @JsonProperty("radioID") int radioID,
-            @JsonProperty("radioSize") RadioSize radioSize,
-            @JsonProperty("features") List<String> features,
+            @JsonProperty("radio_id") int radioID,
+            @JsonProperty("radio_size") RadioSize radioSize,
+            @JsonProperty("features") String features,
             @JsonProperty("description") String description,
             @JsonProperty("stock") int stock,
             @JsonProperty("price") double price,
-            @JsonProperty("imagepath") String imagePath
+            @JsonProperty("image_path") String imagePath
     ) {
 
         this.radioID = radioID;
@@ -67,6 +58,10 @@ public class Radio {
         this.radioID = radioID;
     }
 
+    public ProductType getProductType() {
+        return this.productType;
+    }
+
     @JsonProperty
     @NotNull
     public RadioSize getRadioSize() {
@@ -78,11 +73,11 @@ public class Radio {
     }
 
     @JsonProperty
-    public List<String> getFeatures() {
+    public String getFeatures() {
         return features;
     }
 
-    public void setFeatures(List<String> features) {
+    public void setFeatures(String features) {
         this.features = features;
     }
 

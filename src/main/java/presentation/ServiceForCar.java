@@ -8,14 +8,14 @@ import javax.validation.constraints.NotNull;
 public class ServiceForCar {
 
     //Variables
-    private int carServiceID;
+    private long carServiceID;
     private String description;
     private double price;
 
     //JsonCreator
     @JsonCreator
     public ServiceForCar(
-            @JsonProperty("carServiceID") int carServiceID,
+            @JsonProperty("car_service_id") long carServiceID,
             @JsonProperty("description") String description,
             @JsonProperty("price") double price
     ) {
@@ -29,11 +29,11 @@ public class ServiceForCar {
     //Getters and setters
     @JsonProperty
     @NotNull
-    public int getCarServiceID() {
+    public long getCarServiceID() {
         return carServiceID;
     }
 
-    public void setCarServiceID(int carServiceID) {
+    public void setCarServiceID(long carServiceID) {
         this.carServiceID = carServiceID;
     }
 
