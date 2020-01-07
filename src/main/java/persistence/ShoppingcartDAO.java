@@ -1,5 +1,6 @@
 package persistence;
 
+import presentation.Product;
 import presentation.Shoppingcart;
 import util.DatabaseConnector;
 import util.ResultSetMapper;
@@ -14,7 +15,7 @@ public class ShoppingcartDAO {
     private PreparedStatement statement;
     private DatabaseConnector databaseConnector = DatabaseConnector.getInstance();
 
-    public Object getCart(long id) {
+    public Shoppingcart getCart(long id) {
 
         Shoppingcart cart = null;
 
@@ -37,15 +38,25 @@ public class ShoppingcartDAO {
         return cart;
     }
 
-    public boolean delete(long id, Class<?> object) {
+    public boolean delete(long id, Product product) {
 
         boolean succes = false;
 
         try {
 
             Connection conn = databaseConnector.getConnection();
-            statement = conn.prepareStatement("INSERT INTO shoppingcart VALUES (?, ?, ?)");
+            statement = conn.prepareStatement("INSERT INTO shoppingcart VALUES (?, ?, ?, ?)");
             statement.setLong(1, id);
+            statement.setLong(2, product.getId());
+            statement.setString(3, product.getProductType().toString());
+            statement.setLong(4, product.getAmount());
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                succes = true;
+            }
+
+            conn.close();
 
         } catch (SQLException e) {
             e.getMessage();
@@ -53,14 +64,79 @@ public class ShoppingcartDAO {
         return succes;
     }
 
-    public boolean add(long id, Class<?> object) {
+    public boolean add(long id, Product product) {
 
         boolean succes = false;
+        long found = checkIfAlreadyAdded(id, product);
 
-        //TODO: FIX YOUR SHIT
+        if(found != 0) {
+
+            try {
+                Connection conn = databaseConnector.getConnection();
+                statement = conn.prepareStatement("UPDATE shoppingcart SET amount=? WHERE client_id=? AND id=?");
+                long total = found + product.getAmount();
+                statement.setLong(1, total);
+                statement.setLong(2, id);
+                statement.setLong(3, product.getId());
+                ResultSet rs = statement.executeQuery();
+
+                while (rs.next()) {
+                    succes = true;
+                }
+
+                conn.close();;
+
+            } catch (SQLException e) {
+                e.getMessage();
+            }
+
+        } else {
+
+            try {
+                Connection conn = databaseConnector.getConnection();
+                statement = conn.prepareStatement("INSERT INTO shoppingcart VALUES ?, ?, ?, ?");
+                statement.setLong(1, id);
+                statement.setLong(2, product.getId());
+                statement.setString(3, product.getProductType().toString());
+                statement.setLong(4, product.getAmount());
+                ResultSet rs = statement.executeQuery();
+
+                while (rs.next()) {
+                    succes = true;
+                }
+
+                conn.close();
+
+            } catch (SQLException e) {
+                e.getMessage();
+            }
+
+        }
 
         return succes;
 
+    }
+
+    private long checkIfAlreadyAdded(long id, Product product) {
+
+        long found = 0;
+
+        try {
+            Connection conn = databaseConnector.getConnection();
+            statement = conn.prepareStatement("SELECT amount FROM shoppingcart " +
+                    "WHERE client_id=? AND product_type=? AND id=?");
+            statement.setLong(1, id);
+            statement.setString(2, product.getProductType().toString());
+            statement.setLong(3, product.getId());
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                found = rs.getLong("amount");
+            }
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+        return found;
     }
 
 }

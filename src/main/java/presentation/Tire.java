@@ -16,7 +16,6 @@ public class Tire {
 
     //Variables
     private long tireID;
-    private ProductType productType = ProductType.TIRE;
     private TireType tireType;
     private String description;
     private int stock;
@@ -52,10 +51,6 @@ public class Tire {
 
     public void setTireID(long tireID) {
         this.tireID = tireID;
-    }
-
-    public ProductType getProductType() {
-        return this.productType;
     }
 
     @JsonProperty

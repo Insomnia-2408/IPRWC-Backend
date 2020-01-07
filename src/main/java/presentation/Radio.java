@@ -17,7 +17,6 @@ public class Radio {
 
     //Variables
     private int radioID;
-    private ProductType productType = ProductType.RADIO;
     private RadioSize radioSize;
     private String features;
     private String description;
@@ -56,10 +55,6 @@ public class Radio {
 
     public void setRadioID(int radioID) {
         this.radioID = radioID;
-    }
-
-    public ProductType getProductType() {
-        return this.productType;
     }
 
     @JsonProperty

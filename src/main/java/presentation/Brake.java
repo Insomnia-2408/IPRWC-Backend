@@ -6,11 +6,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-public class Brake implements Product {
+public class Brake {
 
     //Variables
     private long brakeID;
-    private ProductType productType = ProductType.BRAKE;
     private String description;
     private int stock;
     private double price;
@@ -43,10 +42,6 @@ public class Brake implements Product {
 
     public void setBrakeID(long brakeID) {
         this.brakeID = brakeID;
-    }
-
-    public ProductType getProductType() {
-        return this.productType;
     }
 
     @JsonProperty

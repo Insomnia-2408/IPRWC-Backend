@@ -10,7 +10,6 @@ public class Rim {
 
     //Variables
     private long rimID;
-    private ProductType productType = ProductType.RIM;
     private String size;
     private String description;
     private int stock;
@@ -46,10 +45,6 @@ public class Rim {
 
     public void setRimID(long rimID) {
         this.rimID = rimID;
-    }
-
-    public ProductType getProductType() {
-        return this.productType;
     }
 
     @JsonProperty

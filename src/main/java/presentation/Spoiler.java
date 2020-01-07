@@ -10,7 +10,6 @@ public class Spoiler {
 
     //Variables
     private long spoilerID;
-    private ProductType productType = ProductType.SPOILER;
     private String description;
     private int stock;
     private double price;
@@ -43,10 +42,6 @@ public class Spoiler {
 
     public void setSpoilerID(long spoilerID) {
         this.spoilerID = spoilerID;
-    }
-
-    public ProductType getProductType() {
-        return this.productType;
     }
 
     @JsonProperty

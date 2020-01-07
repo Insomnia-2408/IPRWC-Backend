@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
-public class Car implements Product {
+public class Car {
 
     //Enums
     public enum CarType {
@@ -43,7 +43,6 @@ public class Car implements Product {
 
     //Variables
     private long carID;
-    private ProductType productType = ProductType.CAR;
     private CarType carType;
     private String brand;
     private int mileage;
@@ -117,10 +116,6 @@ public class Car implements Product {
 
     public void setId(long carID) {
         this.carID = carID;
-    }
-
-    public ProductType getProductType() {
-        return this.productType;
     }
 
     @JsonProperty

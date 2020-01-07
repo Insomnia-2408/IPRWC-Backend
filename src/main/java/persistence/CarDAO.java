@@ -188,6 +188,8 @@ public class CarDAO implements DAO<Car> {
                 id = rs.getInt("id");
             }
 
+            conn.close();
+
         } catch (SQLException e) {
             e.getMessage();
         }

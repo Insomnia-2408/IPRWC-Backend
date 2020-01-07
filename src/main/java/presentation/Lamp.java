@@ -10,7 +10,6 @@ public class Lamp {
 
     //Variables
     private long lampID;
-    private ProductType productType = ProductType.LAMP;
     private String description;
     private int stock;
     private double price;
@@ -43,10 +42,6 @@ public class Lamp {
 
     public void setLampID(long lampID) {
         this.lampID = lampID;
-    }
-
-    public ProductType getProductType() {
-        return this.productType;
     }
 
     @JsonProperty
