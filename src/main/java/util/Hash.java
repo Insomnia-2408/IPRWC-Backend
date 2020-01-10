@@ -1,5 +1,6 @@
 package util;
 
+import javax.xml.bind.DatatypeConverter;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -11,8 +12,8 @@ public class Hash {
 
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hash = digest.digest(hashable.getBytes(StandardCharsets.UTF_8));
-
-        return Arrays.toString(hash);
+        String readableHash = DatatypeConverter.printHexBinary(hash).toUpperCase();
+        return readableHash;
 
     }
 

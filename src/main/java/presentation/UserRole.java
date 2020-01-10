@@ -1,7 +1,10 @@
 package presentation;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum UserRole {
 
-    UNVERIFIED, CUSTOMER, ADMIN
+    UNVERIFIED, USER, ADMIN
 
 }

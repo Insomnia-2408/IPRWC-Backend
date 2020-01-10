@@ -47,8 +47,14 @@ public class UserResource implements Resource<User> {
     }
 
     @POST
-    @Path("/{token}")
+    @Path("/{token}/createUser")
     public Response post(@PathParam("token") String token, User user) throws NoSuchAlgorithmException {
+        return service.create(user);
+    }
+
+    @POST
+    @Path("/register")
+    public Response post(User user) throws NoSuchAlgorithmException {
         return service.create(user);
     }
 

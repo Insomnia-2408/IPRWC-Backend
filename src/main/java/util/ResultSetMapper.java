@@ -41,17 +41,14 @@ public class ResultSetMapper {
 
     public static User mapToUser(ResultSet rs) throws SQLException {
 
-        long id = rs.getLong("id");
+        long id = rs.getLong("client_id");
         String name = rs.getString("name");
         String email = rs.getString("email");
         String password = rs.getString("password");
         String address = rs.getString("address");
-        List<Order> orders = (List<Order>) rs.getArray("orders");
-        List<ServiceForCar> services = (List<ServiceForCar>) rs.getArray("services");
-        List<Bill> bills = (List<Bill>) rs.getArray("bills");
         String userRole = rs.getString("user_role");
 
-        return new User(id, name, email, password, address, orders, services, bills, UserRole.valueOf(userRole));
+        return new User(id, name, email, password, address, UserRole.valueOf(userRole));
 
     }
 

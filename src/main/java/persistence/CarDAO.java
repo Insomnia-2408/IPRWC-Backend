@@ -32,7 +32,7 @@ public class CarDAO implements DAO<Car> {
             return carList;
 
         } catch (SQLException e) {
-            e.getMessage();
+            e.printStackTrace();
         }
         return carList;
     }
@@ -55,7 +55,7 @@ public class CarDAO implements DAO<Car> {
             conn.close();
 
         } catch (SQLException e) {
-            e.getMessage();
+            e.printStackTrace();
         }
         return car;
     }
@@ -69,16 +69,16 @@ public class CarDAO implements DAO<Car> {
             Connection conn = databaseConnector.getConnection();
             statement = conn.prepareStatement("DELETE FROM car WHERE car_id=?");
             statement.setLong(1, id);
-            ResultSet rs = statement.executeQuery();
+            int rs = statement.executeUpdate();
 
-            while (rs.next()) {
+            if (rs == 1 || rs == 2) {
                 succes = true;
             }
 
             conn.close();
 
         } catch (SQLException e) {
-            e.getMessage();
+            e.printStackTrace();
         }
         return succes;
     }
@@ -116,16 +116,16 @@ public class CarDAO implements DAO<Car> {
             statement.setString(18, car.getImagePath());
             statement.setLong(19, car.getID());
 
-            ResultSet rs = statement.executeQuery();
+            int rs = statement.executeUpdate();
 
-            while (rs.next()) {
+            if (rs == 1 || rs == 2) {
                 succes = true;
             }
 
             conn.close();
 
         }catch (SQLException e) {
-            e.getMessage();
+            e.printStackTrace();
         }
         return succes;
     }
@@ -160,16 +160,16 @@ public class CarDAO implements DAO<Car> {
             statement.setDate(18, (Date) car.getAPK());
             statement.setString(19, car.getImagePath());
 
-            ResultSet rs = statement.executeQuery();
+            int rs = statement.executeUpdate();
 
-            while (rs.next()) {
+            if (rs == 1 || rs == 2) {
                 succes = true;
             }
 
             conn.close();
 
         } catch (SQLException e) {
-            e.getMessage();
+            e.printStackTrace();
         }
         return succes;
     }
@@ -191,7 +191,7 @@ public class CarDAO implements DAO<Car> {
             conn.close();
 
         } catch (SQLException e) {
-            e.getMessage();
+            e.printStackTrace();
         }
         return id;
     }

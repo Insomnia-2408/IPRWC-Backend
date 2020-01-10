@@ -26,7 +26,7 @@ public class ShoppingcartResource {
     @Path("/{token}")
     @Produces(MediaType.APPLICATION_JSON)
     public Object getByID(@PathParam("token") String token) {
-        if(authentication.isAuthorized(token, UserRole.CUSTOMER)) {
+        if(authentication.isAuthorized(token, UserRole.USER)) {
             return service.getCart(authentication.checkToken(token));
         } else {
             return null;
@@ -37,7 +37,7 @@ public class ShoppingcartResource {
     @Path("/{token}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response add(@PathParam("token") String token, Product product) {
-        if(authentication.isAuthorized(token, UserRole.CUSTOMER)) {
+        if(authentication.isAuthorized(token, UserRole.USER)) {
             return service.add(authentication.checkToken(token), product);
         }
         return Response.status(Response.Status.UNAUTHORIZED).build();
@@ -47,7 +47,7 @@ public class ShoppingcartResource {
     @Path("/{token}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response delete(@PathParam("token") String token, Product product) {
-        if(authentication.isAuthorized(token, UserRole.CUSTOMER)) {
+        if(authentication.isAuthorized(token, UserRole.USER)) {
             return service.delete(authentication.checkToken(token), product);
         } else {
             return Response.status(Response.Status.UNAUTHORIZED).build();

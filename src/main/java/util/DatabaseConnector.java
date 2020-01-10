@@ -10,7 +10,7 @@ public class DatabaseConnector {
     private static final Object mutex = new Object();
     private DataSource datasource;
 
-    private DatabaseConnector() {
+    public DatabaseConnector() {
     }
 
     public static DatabaseConnector getInstance() {

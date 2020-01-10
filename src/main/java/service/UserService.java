@@ -2,6 +2,7 @@ package service;
 
 import persistence.UserDAO;
 import presentation.User;
+import presentation.UserRole;
 import util.Hash;
 
 import javax.inject.Inject;
@@ -32,13 +33,22 @@ public class UserService implements Service<User> {
     public Response create(User user) throws NoSuchAlgorithmException {
 
         user.setClientID(userDAO.getHighestID() + 1);
+        System.out.println(user.getClientID());
         user.setPassword(Hash.hash(user.getPassword()));
+        user.setUserRole(UserRole.UNVERIFIED);
 
-        if(userDAO.create(user)) {
-            return Response.ok().build();
+        if(!userDAO.checkIfEmailExists(user.getEmail())) {
+
+            if(userDAO.create(user)) {
+                return Response.ok().build();
+            } else {
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            }
+
         } else {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE).build();
         }
+
     }
 
     public Response update(User user) {

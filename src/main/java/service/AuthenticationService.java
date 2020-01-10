@@ -52,13 +52,28 @@ public class AuthenticationService {
 
     private Response verifyFoundUser(User user) {
 
-        if(user != null && user.getUserRole() != UserRole.UNVERIFIED) {
+        checkIfFirstLogin(user);
+
+        if(user != null) {
             String token = createToken();
             authenticationDAO.setToken(user.getClientID(), token);
             return Response.ok(token).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+
+    }
+
+    private void checkIfFirstLogin(User user) {
+
+        if(user.getUserRole() == UserRole.UNVERIFIED) {
+            user.setUserRole(UserRole.USER);
+            userDAO.update(user);
+            authenticationDAO.createFirstToken(user.getClientID(), createToken());
+        } else {
+            authenticationDAO.setToken(user.getClientID(), createToken());
+        }
+
     }
 
     public String createToken() {

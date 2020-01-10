@@ -6,7 +6,21 @@ import io.dropwizard.forms.MultiPartBundle;
 import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import persistence.AuthenticationDAO;
+import persistence.CarDAO;
+import persistence.ShoppingcartDAO;
+import persistence.UserDAO;
+import presentation.User;
+import resource.AuthenticationResource;
+import resource.CarResource;
+import resource.ShoppingcartResource;
+import resource.UserResource;
 import ru.vyarus.dropwizard.guice.GuiceBundle;
+import service.AuthenticationService;
+import service.CarService;
+import service.ShoppingcartService;
+import service.UserService;
+import util.DatabaseConnector;
 
 import javax.sql.DataSource;
 
@@ -18,7 +32,7 @@ public class Main extends Application<ApiConfiguration> {
 
     @Override
     public String getName() {
-        return "Webshop";
+        return "webshop";
     }
 
     @Override
@@ -44,7 +58,48 @@ public class Main extends Application<ApiConfiguration> {
     public void run(ApiConfiguration config, Environment environment) {
 
         DataSourceFactory factory = config.getDataSourceFactory();
-        DataSource dataSource = factory.build(environment.metrics(), "webshop-datasource");
+        DataSource dataSource = factory.build(environment.metrics(), "webshop");
+
+        new DatabaseConnector();
+        DatabaseConnector.getInstance().setDataSource(dataSource);
+
+        registerInjections(environment);
+
+    }
+
+    private void registerInjections(Environment environment) {
+
+        UserDAO userDAO = new UserDAO();
+        AuthenticationService authenticationService = new AuthenticationService(new AuthenticationDAO(), userDAO);
+
+        environment.jersey().register(
+                new AuthenticationResource(authenticationService)
+        );
+
+        environment.jersey().register(
+                new CarResource(
+                        new CarService(
+                                new CarDAO()
+                        ),
+                        authenticationService
+                )
+        );
+
+        environment.jersey().register(
+                new ShoppingcartResource(
+                        new ShoppingcartService(
+                                new ShoppingcartDAO()
+                        ),
+                        authenticationService
+                )
+        );
+
+        environment.jersey().register(
+                new UserResource(
+                        new UserService(userDAO),
+                        authenticationService
+                )
+        );
 
     }
 

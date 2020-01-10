@@ -28,9 +28,6 @@ public class User implements Principal {
             @JsonProperty("email") String email,
             @JsonProperty("password") String password,
             @JsonProperty("address") String address,
-            @JsonProperty("orders") List<Order> orders,
-            @JsonProperty("carServices") List<ServiceForCar> carServices,
-            @JsonProperty("bills") List<Bill> bills,
             @JsonProperty("user_role") UserRole userRole
     ) {
 
@@ -39,9 +36,6 @@ public class User implements Principal {
         this.email = email;
         this.password = password;
         this.address = address;
-        this.orders = orders;
-        this.carServices = carServices;
-        this.bills = bills;
         this.userRole = userRole;
 
     }

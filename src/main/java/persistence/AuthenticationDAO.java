@@ -25,15 +25,31 @@ public class AuthenticationDAO {
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                id = rs.getLong("id");
+                id = rs.getLong("client_id");
             }
 
             conn.close();
 
         } catch (SQLException e) {
-            e.getMessage();
+            e.printStackTrace();
         }
         return id;
+    }
+
+    public void createFirstToken(long id, String token) {
+        try {
+
+            Connection conn = databaseConnector.getConnection();
+            statement = conn.prepareStatement("INSERT INTO session VALUES (?, ?)");
+            statement.setLong(1, id);
+            statement.setString(2, token);
+            statement.executeUpdate();
+
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean setToken(long id, String token) {
@@ -46,16 +62,16 @@ public class AuthenticationDAO {
             statement = conn.prepareStatement("UPDATE session SET token=? WHERE client_id=?");
             statement.setString(1, token);
             statement.setLong(2, id);
-            ResultSet rs = statement.executeQuery();
+            int rs = statement.executeUpdate();
 
-            while(rs.next()) {
+            if (rs == 1 || rs == 2) {
                 succes = true;
             }
 
             conn.close();
 
         } catch (SQLException e) {
-            e.getMessage();
+            e.printStackTrace();
         }
         return succes;
     }

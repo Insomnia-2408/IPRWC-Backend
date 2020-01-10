@@ -33,7 +33,7 @@ public class ShoppingcartDAO {
             conn.close();
 
         } catch (SQLException e) {
-            e.getMessage();
+            e.printStackTrace();
         }
         return cart;
     }
@@ -50,16 +50,16 @@ public class ShoppingcartDAO {
             statement.setLong(2, product.getId());
             statement.setString(3, product.getProductType().toString());
             statement.setLong(4, product.getAmount());
-            ResultSet rs = statement.executeQuery();
+            int rs = statement.executeUpdate();
 
-            while (rs.next()) {
+            if (rs == 1 || rs == 2) {
                 succes = true;
             }
 
             conn.close();
 
         } catch (SQLException e) {
-            e.getMessage();
+            e.printStackTrace();
         }
         return succes;
     }
@@ -78,16 +78,16 @@ public class ShoppingcartDAO {
                 statement.setLong(1, total);
                 statement.setLong(2, id);
                 statement.setLong(3, product.getId());
-                ResultSet rs = statement.executeQuery();
+                int rs = statement.executeUpdate();
 
-                while (rs.next()) {
+                if (rs == 1 || rs == 2) {
                     succes = true;
                 }
 
                 conn.close();;
 
             } catch (SQLException e) {
-                e.getMessage();
+                e.printStackTrace();
             }
 
         } else {
@@ -99,16 +99,16 @@ public class ShoppingcartDAO {
                 statement.setLong(2, product.getId());
                 statement.setString(3, product.getProductType().toString());
                 statement.setLong(4, product.getAmount());
-                ResultSet rs = statement.executeQuery();
+                int rs = statement.executeUpdate();
 
-                while (rs.next()) {
+                if (rs == 1 || rs == 2) {
                     succes = true;
                 }
 
                 conn.close();
 
             } catch (SQLException e) {
-                e.getMessage();
+                e.printStackTrace();
             }
 
         }
@@ -134,7 +134,7 @@ public class ShoppingcartDAO {
                 found = rs.getLong("amount");
             }
         } catch (SQLException e) {
-            e.getMessage();
+            e.printStackTrace();
         }
         return found;
     }
