@@ -37,16 +37,23 @@ public class ShoppingcartDAO {
         return cart;
     }
 
-    public boolean delete(Object object) {
+    public boolean delete(long id, Class<?> object) {
 
         boolean succes = false;
 
-        //TODO: FIX YOUR SHIT
+        try {
 
+            Connection conn = databaseConnector.getConnection();
+            statement = conn.prepareStatement("INSERT INTO shoppingcart VALUES (?, ?, ?)");
+            statement.setLong(1, id);
+
+        } catch (SQLException e) {
+            e.getMessage();
+        }
         return succes;
     }
 
-    public boolean add(Object object) {
+    public boolean add(long id, Class<?> object) {
 
         boolean succes = false;
 

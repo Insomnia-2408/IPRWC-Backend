@@ -10,22 +10,13 @@ public class Tire {
     //Enums
     public enum TireType {
 
-        ALL_SEASON("AS"), TOURING("T"), PERFORMANCE("P"), SUMMER("S"), TRACK_COMPETITION("TC"), ALL_TERRAIN("AT"), WINTER("W");
-
-        private String tireType;
-
-        TireType(String tireType) {
-            this.tireType = tireType;
-        }
-
-        public String getTireType() {
-            return tireType;
-        }
+        ALL_SEASON, TOURING, PERFORMANCE, SUMMER, TRACK_COMPETITION, ALL_TERRAIN, WINTER
 
     }
 
     //Variables
-    private int tireID;
+    private long tireID;
+    private ProductType productType = ProductType.TIRE;
     private TireType tireType;
     private String description;
     private int stock;
@@ -35,12 +26,12 @@ public class Tire {
     //JsonCreator
     @JsonCreator
     public Tire(
-            @JsonProperty("tireID") int tireID,
-            @JsonProperty("tireType") TireType tireType,
+            @JsonProperty("tire_id") long tireID,
+            @JsonProperty("tire_type") TireType tireType,
             @JsonProperty("description") String description,
             @JsonProperty("stock") int stock,
             @JsonProperty("price") double price,
-            @JsonProperty("imagePath") String imagePath
+            @JsonProperty("image_path") String imagePath
     ) {
 
         this.tireID = tireID;
@@ -55,12 +46,16 @@ public class Tire {
     //Getters and setters
     @JsonProperty
     @NotNull
-    public int getTireID() {
+    public long getTireID() {
         return tireID;
     }
 
-    public void setTireID(int tireID) {
+    public void setTireID(long tireID) {
         this.tireID = tireID;
+    }
+
+    public ProductType getProductType() {
+        return this.productType;
     }
 
     @JsonProperty

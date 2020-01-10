@@ -9,8 +9,8 @@ import java.util.List;
 public class Spoiler {
 
     //Variables
-    private int spoilerID;
-    private List<String> compatibleWith;
+    private long spoilerID;
+    private ProductType productType = ProductType.SPOILER;
     private String description;
     private int stock;
     private double price;
@@ -19,16 +19,14 @@ public class Spoiler {
     //JsonCreator
     @JsonCreator
     public Spoiler(
-            @JsonProperty("spoilerID") int spoilerID,
-            @JsonProperty("compatibleWith") List<String> compatibleWith,
+            @JsonProperty("spoiler_id") long spoilerID,
             @JsonProperty("description") String description,
             @JsonProperty("stock") int stock,
             @JsonProperty("price") double price,
-            @JsonProperty("imagePath") String imagePath
+            @JsonProperty("image_path") String imagePath
     ) {
 
         this.spoilerID = spoilerID;
-        this.compatibleWith = compatibleWith;
         this.description = description;
         this.stock = stock;
         this.price = price;
@@ -39,22 +37,16 @@ public class Spoiler {
     //Getters and setters
     @JsonProperty
     @NotNull
-    public int getSpoilerID() {
+    public long getSpoilerID() {
         return spoilerID;
     }
 
-    public void setSpoilerID(int spoilerID) {
+    public void setSpoilerID(long spoilerID) {
         this.spoilerID = spoilerID;
     }
 
-    @JsonProperty
-    @NotNull
-    public List<String> getCompatibleWith() {
-        return compatibleWith;
-    }
-
-    public void setCompatibleWith(List<String> compatibleWith) {
-        this.compatibleWith = compatibleWith;
+    public ProductType getProductType() {
+        return this.productType;
     }
 
     @JsonProperty
