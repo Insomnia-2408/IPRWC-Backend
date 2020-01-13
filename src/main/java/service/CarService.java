@@ -4,9 +4,10 @@ import persistence.CarDAO;
 import presentation.Car;
 
 import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
-public class CarService implements Service {
+public class CarService implements Service<Car> {
 
     private final CarDAO carDAO;
 
@@ -16,18 +17,38 @@ public class CarService implements Service {
     }
 
     public List list() {
-        return null;
+        return carDAO.list();
     }
 
-    public Car getByID() {
-        return null;
+    public Car getByID(long id) {
+        return carDAO.getByID(id);
     }
 
-    public Car deleteByID() {
-        return null;
+    public Response create(Car car) {
+        long id = carDAO.getHighestID() + 1;
+        car.setId(id);
+
+        if(carDAO.create(car)) {
+            return Response.ok().build();
+        } else {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
-    public Car update() {
-        return null;
+    public Response update(Car car) {
+        if(carDAO.update(car)) {
+            return Response.ok().build();
+        } else {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
     }
+
+    public Response deleteByID(long id) {
+        if(carDAO.deleteByID(id)) {
+            return Response.ok().build();
+        } else {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 }

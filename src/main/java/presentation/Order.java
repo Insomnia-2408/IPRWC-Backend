@@ -10,20 +10,20 @@ import java.util.List;
 public class Order {
 
     //Variables
-    private int orderID;
+    private long orderID;
     private List<Object> products;
-    private int billID;
-    private int clientID;
+    private long billID;
+    private long clientID;
     private Date orderDate;
     private Date deliverDate;
 
     //JsonCreator
     @JsonCreator
     public Order(
-            @JsonProperty("orderID") int orderID,
+            @JsonProperty("order_id") long orderID,
             @JsonProperty("products") List<Object> products,
-            @JsonProperty("billID") int billID,
-            @JsonProperty("clientID") int clientID,
+            @JsonProperty("bill_id") long billID,
+            @JsonProperty("client_id") long clientID,
             @JsonProperty("orderDate") Date orderDate,
             @JsonProperty("deliverDate") Date deliverDate
     ) {
@@ -40,11 +40,11 @@ public class Order {
     //Getters and setters
     @JsonProperty
     @NotNull
-    public int getOrderID() {
+    public long getOrderID() {
         return orderID;
     }
 
-    public void setOrderID(int orderID) {
+    public void setOrderID(long orderID) {
         this.orderID = orderID;
     }
 
@@ -60,21 +60,21 @@ public class Order {
 
     @JsonProperty
     @NotNull
-    public int getBillID() {
+    public long getBillID() {
         return billID;
     }
 
-    public void setBillID(int billID) {
+    public void setBillID(long billID) {
         this.billID = billID;
     }
 
     @JsonProperty
     @NotNull
-    public int getClientID() {
+    public long getClientID() {
         return clientID;
     }
 
-    public void setClientID(int clientID) {
+    public void setClientID(long clientID) {
         this.clientID = clientID;
     }
 

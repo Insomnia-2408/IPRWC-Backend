@@ -9,14 +9,14 @@ import java.util.List;
 public class Shoppingcart {
 
     //Variables
-    private int clientID;
+    private long clientID;
     private List<Object> products;
     private double price;
 
     //JsonCreator
     @JsonCreator
     public Shoppingcart(
-            @JsonProperty("clientID") int clientID,
+            @JsonProperty("clientID") long clientID,
             @JsonProperty("products") List<Object> products,
             @JsonProperty("price") double price
     ) {
@@ -30,11 +30,11 @@ public class Shoppingcart {
     //Getters and setters
     @JsonProperty
     @NotNull
-    public int getClientID() {
+    public long getClientID() {
         return clientID;
     }
 
-    public void setClientID(int clientID) {
+    public void setClientID(long clientID) {
         this.clientID = clientID;
     }
 

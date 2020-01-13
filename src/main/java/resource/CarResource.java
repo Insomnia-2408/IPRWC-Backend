@@ -1,37 +1,71 @@
 package resource;
 
 import presentation.Car;
-import presentation.CarService;
+import presentation.UserRole;
+import service.AuthenticationService;
+import service.CarService;
 
 import javax.inject.Inject;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
-public class CarResource implements Resource {
+@Path("/cars")
+public class CarResource implements Resource<Car> {
 
     private final CarService service;
+    private final AuthenticationService authentication;
 
     @Inject
-    public CarResource(CarService service) {
-        this.service = service;
+    public CarResource(CarService carService, AuthenticationService authentication) {
+        this.service = carService;
+        this.authentication = authentication;
     }
 
-    public List index() {
-        return null;
+    @GET
+    @Path("/{token}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List index(@PathParam("token") String token) {
+        return service.list();
     }
 
-    public Car post() {
-        return null;
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{token}/{id}")
+    public Car getByID(@PathParam("token") String token, @PathParam("id") long id) {
+        return service.getByID(id);
     }
 
-    public Car get() {
-        return null;
+    @POST
+    @Path("/{token}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response post(@PathParam("token") String token, Car car) {
+        if(authentication.isAuthorized(token, UserRole.ADMIN)) {
+            return service.create(car);
+        } else {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
     }
 
-    public Car put() {
-        return null;
+    @PUT
+    @Path("/{token}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response put(@PathParam("token") String token, Car car) {
+        if(authentication.isAuthorized(token, UserRole.ADMIN)) {
+            return service.update(car);
+        } else {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
     }
 
-    public Car delete() {
-        return null;
+    @DELETE
+    @Path("/{token}/{id}")
+    public Response delete(@PathParam("token") String token, @PathParam("id") long id) {
+        if(authentication.isAuthorized(token, UserRole.ADMIN)) {
+            return service.deleteByID(id);
+        } else {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
     }
 }

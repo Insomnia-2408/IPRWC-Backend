@@ -9,9 +9,9 @@ import java.util.List;
 public class Rim {
 
     //Variables
-    private int rimID;
+    private long rimID;
     private String size;
-    private List<String> compatibleWith;
+    private String description;
     private int stock;
     private double price;
     private String imagePath;
@@ -19,17 +19,17 @@ public class Rim {
     //JsonCreator
     @JsonCreator
     public Rim(
-            @JsonProperty("rimID") int rimID,
+            @JsonProperty("rim_id") long rimID,
             @JsonProperty("size") String size,
-            @JsonProperty("compatibleWith") List<String> compatibleWith,
+            @JsonProperty("description") String description,
             @JsonProperty("stock") int stock,
             @JsonProperty("price") double price,
-            @JsonProperty("imagePath") String imagePath
+            @JsonProperty("image_path") String imagePath
     ) {
 
         this.rimID = rimID;
         this.size = size;
-        this.compatibleWith = compatibleWith;
+        this.description = description;
         this.stock = stock;
         this.price = price;
         this.imagePath = imagePath;
@@ -39,11 +39,11 @@ public class Rim {
     //Getters and setters
     @JsonProperty
     @NotNull
-    public int getRimID() {
+    public long getRimID() {
         return rimID;
     }
 
-    public void setRimID(int rimID) {
+    public void setRimID(long rimID) {
         this.rimID = rimID;
     }
 
@@ -59,12 +59,12 @@ public class Rim {
 
     @JsonProperty
     @NotNull
-    public List<String> getCompatibleWith() {
-        return compatibleWith;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCompatibleWith(List<String> compatibleWith) {
-        this.compatibleWith = compatibleWith;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @JsonProperty

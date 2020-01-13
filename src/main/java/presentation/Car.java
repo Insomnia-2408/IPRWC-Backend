@@ -11,88 +11,38 @@ public class Car {
 
     //Enums
     public enum CarType {
-        
-        
-        NEW("N"), OCCASION("O"), SHOWMODEL("S");
-        
-        private String carType;
-        
-        CarType(String carType) {
-            this.carType = carType;
-        }
-        
-        public String getCarType() {
-            return carType;
-        }
+
+        NEW, OCCASION, SHOWMODEL
         
     }
 
     public enum Transmission {
 
-        AUTOMATIC("A"), SEMI_AUTOMATIC("SA"), MANUAL("M");
-
-        private String transmission;
-
-        Transmission(String transmission) {
-            this.transmission = transmission;
-        }
-
-        public String getTransmission() {
-            return transmission;
-        }
+        AUTOMATIC, SEMI_AUTOMATIC, MANUAL
 
     }
 
     public enum FuelType {
 
 
-        GASOLINE("G"), DIESEL("D"), ELECTRIC("E"), HYDROGEN("H");
-
-        private String fuelType;
-
-        FuelType(String fuelType) {
-            this.fuelType = fuelType;
-        }
-
-        public String getFuelType() {
-            return fuelType;
-        }
+        GASOLINE, DIESEL, ELECTRIC, HYDROGEN
 
     }
 
     public enum BodyType {
 
-        HATCHBACK("H"), MPV("M"), SEDAN("S"), STATIONWAGON("SW"), COUPE("C"), CABRIOLET("CB"), SUV("SUV"), REMAINING("R");
-
-        private String bodyType;
-
-        BodyType(String bodyType) {
-            this.bodyType = bodyType;
-        }
-
-        public String getBodyType() {
-            return bodyType;
-        }
+        HATCHBACK, MPV, SEDAN, STATIONWAGON, COUPE, CABRIOLET, SUV, REMAINING
 
     }
 
     public enum EnergyLabel {
 
-        A("A"), B("B"), C("C"), D("D"), E("E"), F("F"), G("G");
-
-        private String energyLabel;
-
-        EnergyLabel(String energyLabel) {
-            this.energyLabel = energyLabel;
-        }
-
-        public String getEnergyLabel() {
-            return energyLabel;
-        }
+        A, B, C, D, E, F, G
 
     }
 
     //Variables
+    private long carID;
     private CarType carType;
     private String brand;
     private int mileage;
@@ -115,6 +65,7 @@ public class Car {
     //JsonCreator
     @JsonCreator
     public Car(
+            @JsonProperty("car_id") long carID,
             @JsonProperty("carType") CarType carType,
             @JsonProperty("brand") String brand,
             @JsonProperty("mileage") int mileage,
@@ -132,9 +83,10 @@ public class Car {
             @JsonProperty("gears") int gears,
             @JsonProperty("energyLabel") EnergyLabel energyLabel,
             @JsonProperty("APK") Date APK,
-            @JsonProperty("imagePath") String imagePath
+            @JsonProperty("image_path") String imagePath
             ) {
 
+        this.carID = carID;
         this.carType = carType;
         this.brand = brand;
         this.mileage = mileage;
@@ -157,6 +109,15 @@ public class Car {
     }
 
     //Getters and setters
+    @JsonProperty
+    public long getID() {
+        return this.carID;
+    }
+
+    public void setId(long carID) {
+        this.carID = carID;
+    }
+
     @JsonProperty
     @NotNull
     public CarType getCarType() {

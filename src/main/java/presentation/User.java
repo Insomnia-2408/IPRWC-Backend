@@ -4,49 +4,50 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
+import java.security.Principal;
 import java.util.List;
 
-public class User {
+public class User implements Principal {
 
     //Variables
-    private int clientID;
+    private long clientID;
     private String name;
     private String email;
+    private String password;
     private String address;
     private List<Order> orders;
-    private List<CarService> carServices;
+    private List<ServiceForCar> carServices;
     private List<Bill> bills;
+    private UserRole userRole;
 
     //JsonCreator
     @JsonCreator
     public User(
-            @JsonProperty("clientID") int clientID,
+            @JsonProperty("client_ID") long clientID,
             @JsonProperty("name") String name,
             @JsonProperty("email") String email,
+            @JsonProperty("password") String password,
             @JsonProperty("address") String address,
-            @JsonProperty("orders") List<Order> orders,
-            @JsonProperty("carServices") List<CarService> carServices,
-            @JsonProperty("bills") List<Bill> bills
+            @JsonProperty("user_role") UserRole userRole
     ) {
 
         this.clientID = clientID;
         this.name = name;
         this.email = email;
+        this.password = password;
         this.address = address;
-        this.orders = orders;
-        this.carServices = carServices;
-        this.bills = bills;
+        this.userRole = userRole;
 
     }
 
     //Getters and setters
     @JsonProperty
     @NotNull
-    public int getClientID() {
+    public long getClientID() {
         return clientID;
     }
 
-    public void setClientID(int clientID) {
+    public void setClientID(long clientID) {
         this.clientID = clientID;
     }
 
@@ -71,6 +72,16 @@ public class User {
     }
 
     @JsonProperty
+    @NotNull
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @JsonProperty
     public String getAddress() {
         return address;
     }
@@ -89,11 +100,11 @@ public class User {
     }
 
     @JsonProperty
-    public List<CarService> getCarServices() {
+    public List<ServiceForCar> getCarServices() {
         return carServices;
     }
 
-    public void setCarServices(List<CarService> carServices) {
+    public void setCarServices(List<ServiceForCar> carServices) {
         this.carServices = carServices;
     }
 
@@ -105,4 +116,15 @@ public class User {
     public void setBills(List<Bill> bills) {
         this.bills = bills;
     }
+
+    @JsonProperty
+    @NotNull
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
+
 }
