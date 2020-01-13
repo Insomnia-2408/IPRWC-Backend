@@ -20,11 +20,17 @@ public class AuthenticationResource {
         this.service = authenticationService;
     }
 
-    @GET
+    @POST
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response onLogin(@NotNull Credentials credentials) throws NoSuchAlgorithmException {
         return service.onLogin(credentials);
+    }
+
+    @DELETE
+    @Path("/{token}/logout")
+    public Response onLogout(@PathParam("token") @NotNull String token) {
+        return service.onLogout(token);
     }
 
 }

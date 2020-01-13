@@ -52,11 +52,9 @@ public class AuthenticationService {
 
     private Response verifyFoundUser(User user) {
 
-        checkIfFirstLogin(user);
-
         if(user != null) {
             String token = createToken();
-            authenticationDAO.setToken(user.getClientID(), token);
+            setTokens(user);
             return Response.ok(token).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -64,7 +62,7 @@ public class AuthenticationService {
 
     }
 
-    private void checkIfFirstLogin(User user) {
+    private void setTokens(User user) {
 
         if(user.getUserRole() == UserRole.UNVERIFIED) {
             user.setUserRole(UserRole.USER);
@@ -93,4 +91,11 @@ public class AuthenticationService {
 
     }
 
+    public Response onLogout(String token) {
+        if(authenticationDAO.deleteToken(token)) {
+            return Response.ok().build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
 }

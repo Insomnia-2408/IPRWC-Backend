@@ -76,4 +76,28 @@ public class AuthenticationDAO {
         return succes;
     }
 
+    public boolean deleteToken(String token) {
+
+        boolean succes = false;
+
+        try {
+
+            Connection conn = databaseConnector.getConnection();
+            statement = conn.prepareStatement("DELETE * FROM session WHERE token=?");
+            statement.setString(1, token);
+            int rs = statement.executeUpdate();
+
+            if (rs == 1 || rs == 2) {
+                succes = true;
+            }
+
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return succes;
+
+    }
 }
