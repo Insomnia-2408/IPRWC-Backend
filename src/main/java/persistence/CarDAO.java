@@ -99,7 +99,7 @@ public class CarDAO implements DAO<Car> {
             statement.setString(1, car.getCarType().toString());
             statement.setString(2, car.getBrand());
             statement.setInt(3, car.getMileage());
-            statement.setArray(4, (Array) car.getOptions());
+            statement.setString(4, car.getOptions());
             statement.setString(5, car.getTransmission().toString());
             statement.setString(6, car.getFuelType().toString());
             statement.setInt(7, car.getBuildYear());
@@ -144,7 +144,7 @@ public class CarDAO implements DAO<Car> {
             statement.setString(2, car.getCarType().toString());
             statement.setString(3, car.getBrand());
             statement.setInt(4, car.getMileage());
-            statement.setArray(5, (Array) car.getOptions());
+            statement.setString(5, car.getOptions());
             statement.setString(6, car.getTransmission().toString());
             statement.setString(7, car.getFuelType().toString());
             statement.setInt(8, car.getBuildYear());

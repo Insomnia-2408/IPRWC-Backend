@@ -24,9 +24,8 @@ public class CarResource implements Resource<Car> {
     }
 
     @GET
-    @Path("/{token}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List index(@PathParam("token") String token) {
+    public List index(String token) {
         return service.list();
     }
 

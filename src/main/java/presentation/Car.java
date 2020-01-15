@@ -46,7 +46,7 @@ public class Car {
     private CarType carType;
     private String brand;
     private int mileage;
-    private List<String> options;
+    private String options;
     private Transmission transmission;
     private FuelType fuelType;
     private int buildYear;
@@ -69,7 +69,7 @@ public class Car {
             @JsonProperty("carType") CarType carType,
             @JsonProperty("brand") String brand,
             @JsonProperty("mileage") int mileage,
-            @JsonProperty("options")List<String> options,
+            @JsonProperty("options")String options,
             @JsonProperty("transmission") Transmission transmission,
             @JsonProperty("fuelType") FuelType fuelType,
             @JsonProperty("buildYear") int buildYear,
@@ -149,11 +149,11 @@ public class Car {
     }
 
     @JsonProperty
-    public List<String> getOptions() {
+    public String getOptions() {
         return options;
     }
 
-    public void setOptions(List<String> options) {
+    public void setOptions(String options) {
         this.options = options;
     }
 

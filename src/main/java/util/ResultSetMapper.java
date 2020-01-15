@@ -13,11 +13,11 @@ public class ResultSetMapper {
 
     public static Car mapToCar(ResultSet rs) throws SQLException {
 
-        long id = rs.getLong("id");
+        long id = rs.getLong("car_id");
         String carType = rs.getString("car_type");
         String brand = rs.getString("brand");
         int mileage = rs.getInt("mileage");
-        List<String> options = (List<String>) rs.getArray("options");
+        String options = rs.getString("options");
         String transmission = rs.getString("transmission");
         String fuelType = rs.getString("fuel_type");
         int buildYear = rs.getInt("build_year");
