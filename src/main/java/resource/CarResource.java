@@ -25,21 +25,20 @@ public class CarResource implements Resource<Car> {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List index(String token) {
+    public List index() {
         return service.list();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{token}/{id}")
-    public Car getByID(@PathParam("token") String token, @PathParam("id") long id) {
+    @Path("/{id}")
+    public Car getByID(@HeaderParam("token") String token, @PathParam("id") long id) {
         return service.getByID(id);
     }
 
     @POST
-    @Path("/{token}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response post(@PathParam("token") String token, Car car) {
+    public Response post(@HeaderParam("token") String token, Car car) {
         if(authentication.isAuthorized(token, UserRole.ADMIN)) {
             return service.create(car);
         } else {
@@ -48,9 +47,8 @@ public class CarResource implements Resource<Car> {
     }
 
     @PUT
-    @Path("/{token}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response put(@PathParam("token") String token, Car car) {
+    public Response put(@HeaderParam("token") String token, Car car) {
         if(authentication.isAuthorized(token, UserRole.ADMIN)) {
             return service.update(car);
         } else {
@@ -59,8 +57,8 @@ public class CarResource implements Resource<Car> {
     }
 
     @DELETE
-    @Path("/{token}/{id}")
-    public Response delete(@PathParam("token") String token, @PathParam("id") long id) {
+    @Path("/{id}")
+    public Response delete(@HeaderParam("token") String token, @PathParam("id") long id) {
         if(authentication.isAuthorized(token, UserRole.ADMIN)) {
             return service.deleteByID(id);
         } else {

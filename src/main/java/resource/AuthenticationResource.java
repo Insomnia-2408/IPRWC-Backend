@@ -28,8 +28,8 @@ public class AuthenticationResource {
     }
 
     @DELETE
-    @Path("/{token}/logout")
-    public Response onLogout(@PathParam("token") @NotNull String token) {
+    @Path("/logout")
+    public Response onLogout(@HeaderParam("token") @NotNull String token) {
         return service.onLogout(token);
     }
 

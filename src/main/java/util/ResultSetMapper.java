@@ -32,10 +32,11 @@ public class ResultSetMapper {
         String energyLabel = rs.getString("energy_label");
         Date APK = rs.getDate("APK");
         String imagePath = rs.getString("image_path");
+        double price = rs.getDouble("price");
 
         return new Car(id, Car.CarType.valueOf(carType), brand, mileage, options, Car.Transmission.valueOf(transmission),
                 Car.FuelType.valueOf(fuelType), buildYear, doors, model, numberplate, Car.BodyType.valueOf(bodyType),
-                motorType, horsepower, seats, gears, Car.EnergyLabel.valueOf(energyLabel), APK, imagePath);
+                motorType, horsepower, seats, gears, Car.EnergyLabel.valueOf(energyLabel), APK, imagePath, price);
 
     }
 
@@ -49,16 +50,6 @@ public class ResultSetMapper {
         String userRole = rs.getString("user_role");
 
         return new User(id, name, email, password, address, UserRole.valueOf(userRole));
-
-    }
-
-    public static Shoppingcart mapToCart(ResultSet rs) throws SQLException {
-
-        long clientID = rs.getLong("client_id");
-        List<Object> products = (List<Object>) rs.getArray("products");
-        double price = rs.getDouble("price");
-
-        return new Shoppingcart(clientID, products, price);
 
     }
 

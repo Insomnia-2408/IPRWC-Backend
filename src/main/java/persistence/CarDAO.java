@@ -94,7 +94,7 @@ public class CarDAO implements DAO<Car> {
                     "SET "+ "carType=? " + "brand=? " + "mileage=? " + "options=? " + "transmission=? " +
                     "fuelType=? " + "buildYear=? " + "doors=? " + "model=? " + "numberplate=? " + "bodyType=? " +
                     "motorType=? " + "horsepower=? " + "seats=? " + "gears=? " + "energyLabel=? " + "APK=? " +
-                    "imagePath=? " + "WHERE car_id=?");
+                    "imagePath=? " + "price=?" + "WHERE car_id=?");
 
             statement.setString(1, car.getCarType().toString());
             statement.setString(2, car.getBrand());
@@ -114,7 +114,8 @@ public class CarDAO implements DAO<Car> {
             statement.setString(16, car.getEnergyLabel().toString());
             statement.setTimestamp(17, (Timestamp) car.getAPK());
             statement.setString(18, car.getImagePath());
-            statement.setLong(19, car.getID());
+            statement.setDouble(19, car.getPrice());
+            statement.setLong(20, car.getID());
 
             int rs = statement.executeUpdate();
 
@@ -139,7 +140,7 @@ public class CarDAO implements DAO<Car> {
             Connection conn = databaseConnector.getConnection();
             statement = conn.prepareStatement("INSERT INTO car VALUES (" +
                     "?, " + "?, " + "?, " + "?, " + "?, " + "?, " + "?, " + "?, " + "?, " + "?, " + "?, " + "?, " +
-                    "?, " + "?, " + "?, " + "?, " + "?, " + "?, " + "?, " + ")");
+                    "?, " + "?, " + "?, " + "?, " + "?, " + "?, "  + "?" + "?, " + ")");
             statement.setLong(1, car.getID());
             statement.setString(2, car.getCarType().toString());
             statement.setString(3, car.getBrand());
@@ -159,6 +160,7 @@ public class CarDAO implements DAO<Car> {
             statement.setString(17, car.getEnergyLabel().toString());
             statement.setDate(18, (Date) car.getAPK());
             statement.setString(19, car.getImagePath());
+            statement.setDouble(20, car.getPrice());
 
             int rs = statement.executeUpdate();
 

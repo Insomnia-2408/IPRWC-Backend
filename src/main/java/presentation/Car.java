@@ -61,6 +61,7 @@ public class Car {
     private EnergyLabel energyLabel;
     private Date APK;
     private String imagePath;
+    private double price;
 
     //JsonCreator
     @JsonCreator
@@ -83,7 +84,8 @@ public class Car {
             @JsonProperty("gears") int gears,
             @JsonProperty("energyLabel") EnergyLabel energyLabel,
             @JsonProperty("APK") Date APK,
-            @JsonProperty("image_path") String imagePath
+            @JsonProperty("image_path") String imagePath,
+            @JsonProperty("price") double price
             ) {
 
         this.carID = carID;
@@ -105,6 +107,7 @@ public class Car {
         this.energyLabel = energyLabel;
         this.APK = APK;
         this.imagePath = imagePath;
+        this.price = price;
 
     }
 
@@ -292,5 +295,10 @@ public class Car {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    @JsonProperty
+    public double getPrice() {
+        return this.price;
     }
 }

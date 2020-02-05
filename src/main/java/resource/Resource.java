@@ -11,9 +11,6 @@ import java.util.List;
 public interface Resource<T> {
 
     @GET
-    List index(String token);
-
-    @GET
     T getByID(String token, long id);
 
     @POST

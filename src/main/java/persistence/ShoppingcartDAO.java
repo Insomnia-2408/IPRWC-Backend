@@ -26,9 +26,7 @@ public class ShoppingcartDAO {
             statement.setLong(1, id);
             ResultSet rs = statement.executeQuery();
 
-            while (rs.next()) {
-                cart = ResultSetMapper.mapToCart(rs);
-            }
+            //removed
 
             conn.close();
 

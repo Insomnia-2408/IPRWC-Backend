@@ -25,9 +25,8 @@ public class UserResource implements Resource<User> {
     }
 
     @GET
-    @Path("/{token}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List index(@PathParam("token") String token) {
+    public List index(@HeaderParam("token") String token) {
         if(authentication.isAuthorized(token, UserRole.ADMIN)) {
             return service.list();
         } else {
@@ -36,9 +35,9 @@ public class UserResource implements Resource<User> {
     }
 
     @GET
-    @Path("/{token}/{client_id}")
+    @Path("/{client_id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public User getByID(@PathParam("token") String token, @PathParam("client_id") long id) {
+    public User getByID(@HeaderParam("token") String token, @PathParam("client_id") long id) {
         if(authentication.isAuthorized(token, UserRole.ADMIN)) {
             return service.getByID(id);
         } else {
@@ -47,8 +46,8 @@ public class UserResource implements Resource<User> {
     }
 
     @POST
-    @Path("/{token}/createUser")
-    public Response post(@PathParam("token") String token, User user) throws NoSuchAlgorithmException {
+    @Path("/createUser")
+    public Response post(@HeaderParam("token") String token, User user) throws NoSuchAlgorithmException {
         return service.create(user);
     }
 
@@ -59,8 +58,7 @@ public class UserResource implements Resource<User> {
     }
 
     @PUT
-    @Path("/{token}")
-    public Response put(@PathParam("token") String token, User user) {
+    public Response put(@HeaderParam("token") String token, User user) {
         if(authentication.isAuthorized(token, UserRole.ADMIN)) {
             return service.update(user);
         } else {
@@ -69,8 +67,7 @@ public class UserResource implements Resource<User> {
     }
 
     @DELETE
-    @Path("/{token}")
-    public Response delete(@PathParam("token") String token, long id) {
+    public Response delete(@HeaderParam("token") String token, long id) {
         if(authentication.isAuthorized(token, UserRole.ADMIN)) {
             return service.deleteByID(id);
         } else {
