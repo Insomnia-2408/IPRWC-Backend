@@ -20,6 +20,12 @@ public class AuthenticationResource {
         this.service = authenticationService;
     }
 
+    @GET
+    @Path("/getThisUser")
+    public Response getThisUser(@HeaderParam("token") String token) {
+        return service.getThisUser(token);
+    }
+
     @POST
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)

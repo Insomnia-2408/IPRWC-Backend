@@ -33,7 +33,6 @@ public class UserService implements Service<User> {
     public Response create(User user) throws NoSuchAlgorithmException {
 
         user.setClientID(userDAO.getHighestID() + 1);
-        System.out.println(user.getClientID());
         user.setPassword(Hash.hash(user.getPassword()));
         user.setUserRole(UserRole.UNVERIFIED);
 

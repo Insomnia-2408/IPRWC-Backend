@@ -1,6 +1,7 @@
 package presentation;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
@@ -43,6 +44,7 @@ public class User implements Principal {
     //Getters and setters
     @JsonProperty
     @NotNull
+    @JsonIgnore
     public long getClientID() {
         return clientID;
     }
@@ -73,6 +75,7 @@ public class User implements Principal {
 
     @JsonProperty
     @NotNull
+    @JsonIgnore
     public String getPassword() {
         return this.password;
     }

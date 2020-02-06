@@ -13,7 +13,7 @@ public class AuthenticationDAO {
     private PreparedStatement statement;
     private DatabaseConnector databaseConnector = DatabaseConnector.getInstance();
 
-    public long getTokenUser(String token) {
+    public long getUserByToken(String token) {
 
         long id = 0;
 

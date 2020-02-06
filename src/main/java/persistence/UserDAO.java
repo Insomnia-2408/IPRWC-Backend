@@ -153,7 +153,6 @@ public class UserDAO implements DAO<User> {
             statement.setString(4, user.getPassword());
             statement.setString(5, user.getAddress());
             statement.setString(6, user.getUserRole().name());
-            System.out.println(statement);
             int rs = statement.executeUpdate();
 
             if (rs == 1 || rs == 2) {

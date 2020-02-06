@@ -9,7 +9,6 @@ import util.Verification;
 
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
-import javax.ws.rs.GET;
 import javax.ws.rs.core.Response;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
@@ -28,7 +27,8 @@ public class AuthenticationService {
 
     public long checkToken(String token) {
 
-        long clientID = authenticationDAO.getTokenUser(token);
+        long clientID = authenticationDAO.getUserByToken(token);
+        System.out.println(clientID);
 
         if(clientID != 0) {
             return clientID;
@@ -54,7 +54,7 @@ public class AuthenticationService {
 
         if(user != null) {
             String token = createToken();
-            setTokens(user);
+            setTokens(user, token);
             return Response.ok(token).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -62,14 +62,14 @@ public class AuthenticationService {
 
     }
 
-    private void setTokens(User user) {
+    private void setTokens(User user, String token) {
 
         if(user.getUserRole() == UserRole.UNVERIFIED) {
             user.setUserRole(UserRole.USER);
             userDAO.update(user);
-            authenticationDAO.createFirstToken(user.getClientID(), createToken());
+            authenticationDAO.createFirstToken(user.getClientID(), token);
         } else {
-            authenticationDAO.setToken(user.getClientID(), createToken());
+            authenticationDAO.setToken(user.getClientID(), token);
         }
 
     }
@@ -97,5 +97,13 @@ public class AuthenticationService {
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+    }
+
+    public Response getThisUser(String token) {
+        long clientID = this.checkToken(token);
+        System.out.println(clientID);
+        User user = this.userDAO.getByID(clientID);
+        System.out.println(user);
+        return verifyFoundUser(user);
     }
 }
