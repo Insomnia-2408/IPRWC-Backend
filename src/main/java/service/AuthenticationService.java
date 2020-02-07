@@ -5,6 +5,7 @@ import persistence.UserDAO;
 import presentation.Credentials;
 import presentation.User;
 import presentation.UserRole;
+import util.ResultSetMapper;
 import util.Verification;
 
 import javax.inject.Inject;
@@ -27,8 +28,7 @@ public class AuthenticationService {
 
     public long checkToken(String token) {
 
-        long clientID = authenticationDAO.getUserByToken(token);
-        System.out.println(clientID);
+        long clientID = authenticationDAO.getUserIDByToken(token);
 
         if(clientID != 0) {
             return clientID;
@@ -39,10 +39,8 @@ public class AuthenticationService {
 
     public Response onLogin(@NotNull Credentials credentials) throws NoSuchAlgorithmException {
 
-        User user = null;
-
         if(Verification.verifyEmail(credentials.getEmail())) {
-            user = userDAO.getAuthorization(credentials);
+            User user = userDAO.getAuthorization(credentials);
             return verifyFoundUser(user);
         } else {
             return Response.status(Response.Status.BAD_REQUEST).build();
@@ -101,9 +99,12 @@ public class AuthenticationService {
 
     public Response getThisUser(String token) {
         long clientID = this.checkToken(token);
-        System.out.println(clientID);
         User user = this.userDAO.getByID(clientID);
-        System.out.println(user);
-        return verifyFoundUser(user);
+
+        if(user != null) {
+            return Response.ok(user).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
     }
 }

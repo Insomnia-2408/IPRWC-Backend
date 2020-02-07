@@ -68,7 +68,7 @@ public class Main extends Application<ApiConfiguration> {
                 environment.servlets().addFilter("CORS", CrossOriginFilter.class);
         // Configure CORS parameters
         cors.setInitParameter("allowedOrigins", "*");
-        cors.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin");
+        cors.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin,token");
         cors.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,DELETE,HEAD");
         environment.jersey().packages("app.resource");
 

@@ -9,8 +9,6 @@ import java.util.List;
 
 public class ResultSetMapper {
 
-    //TODO: FIX ARRAYS!!!
-
     public static Car mapToCar(ResultSet rs) throws SQLException {
 
         long id = rs.getLong("car_id");
