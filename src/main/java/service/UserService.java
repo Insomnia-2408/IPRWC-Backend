@@ -1,5 +1,6 @@
 package service;
 
+import persistence.AuthenticationDAO;
 import persistence.UserDAO;
 import presentation.User;
 import presentation.UserRole;
@@ -16,10 +17,12 @@ import java.util.List;
 public class UserService implements Service<User> {
 
     private final UserDAO userDAO;
+    private final AuthenticationDAO authenticationDAO;
 
     @Inject
-    public UserService(UserDAO userDAO) {
+    public UserService(UserDAO userDAO, AuthenticationDAO authenticationDAO) {
         this.userDAO = userDAO;
+        this.authenticationDAO = authenticationDAO;
     }
 
     public List list() {
@@ -52,7 +55,7 @@ public class UserService implements Service<User> {
 
     public Response update(User user) {
         if(userDAO.update(user)) {
-            return Response.ok().build();
+            return Response.ok(user).build();
         } else {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
@@ -64,6 +67,15 @@ public class UserService implements Service<User> {
         } else {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 
+        }
+    }
+
+    public Response updateUserData(User user, String token) {
+        long clientID = this.authenticationDAO.getUserIDByToken(token);
+        if(clientID == user.getClientID()) {
+            return this.update(user);
+        } else {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
         }
     }
 }

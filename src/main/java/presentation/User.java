@@ -16,18 +16,17 @@ public class User implements Principal {
     private String email;
     private String password;
     private String address;
-    private List<Order> orders;
-    private List<ServiceForCar> carServices;
-    private List<Bill> bills;
+//    private List<Order> orders;
+//    private List<ServiceForCar> carServices;
+//    private List<Bill> bills;
     private UserRole userRole;
 
     //JsonCreator
     @JsonCreator
     public User(
-            @JsonProperty("client_ID") long clientID,
+            @JsonProperty("clientID") long clientID,
             @JsonProperty("name") String name,
             @JsonProperty("email") String email,
-            @JsonProperty("password") String password,
             @JsonProperty("address") String address,
             @JsonProperty("user_role") UserRole userRole
     ) {
@@ -35,7 +34,6 @@ public class User implements Principal {
         this.clientID = clientID;
         this.name = name;
         this.email = email;
-        this.password = password;
         this.address = address;
         this.userRole = userRole;
 
@@ -44,7 +42,6 @@ public class User implements Principal {
     //Getters and setters
     @JsonProperty
     @NotNull
-    @JsonIgnore
     public long getClientID() {
         return clientID;
     }
@@ -93,32 +90,32 @@ public class User implements Principal {
         this.address = address;
     }
 
-    @JsonProperty
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
-
-    @JsonProperty
-    public List<ServiceForCar> getCarServices() {
-        return carServices;
-    }
-
-    public void setCarServices(List<ServiceForCar> carServices) {
-        this.carServices = carServices;
-    }
-
-    @JsonProperty
-    public List<Bill> getBills() {
-        return bills;
-    }
-
-    public void setBills(List<Bill> bills) {
-        this.bills = bills;
-    }
+//    @JsonProperty
+//    public List<Order> getOrders() {
+//        return orders;
+//    }
+//
+//    public void setOrders(List<Order> orders) {
+//        this.orders = orders;
+//    }
+//
+//    @JsonProperty
+//    public List<ServiceForCar> getCarServices() {
+//        return carServices;
+//    }
+//
+//    public void setCarServices(List<ServiceForCar> carServices) {
+//        this.carServices = carServices;
+//    }
+//
+//    @JsonProperty
+//    public List<Bill> getBills() {
+//        return bills;
+//    }
+//
+//    public void setBills(List<Bill> bills) {
+//        this.bills = bills;
+//    }
 
     @JsonProperty
     @NotNull

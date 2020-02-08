@@ -66,6 +66,12 @@ public class UserResource implements Resource<User> {
         }
     }
 
+    @PUT
+    @Path("/editUserData")
+    public Response updateUserData(@HeaderParam("token") String token, User user) {
+        return service.updateUserData(user, token);
+    }
+
     @DELETE
     public Response delete(@HeaderParam("token") String token, long id) {
         if(authentication.isAuthorized(token, UserRole.ADMIN)) {

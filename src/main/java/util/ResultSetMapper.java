@@ -43,11 +43,10 @@ public class ResultSetMapper {
         long id = rs.getLong("client_id");
         String name = rs.getString("name");
         String email = rs.getString("email");
-        String password = rs.getString("password");
         String address = rs.getString("address");
         String userRole = rs.getString("user_role");
 
-        return new User(id, name, email, password, address, UserRole.valueOf(userRole));
+        return new User(id, name, email, address, UserRole.valueOf(userRole));
 
     }
 

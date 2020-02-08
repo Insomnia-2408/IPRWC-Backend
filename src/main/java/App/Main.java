@@ -3,6 +3,7 @@ package App;
 import io.dropwizard.Application;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.forms.MultiPartBundle;
+import io.dropwizard.jersey.jackson.JsonProcessingExceptionMapper;
 import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -84,7 +85,10 @@ public class Main extends Application<ApiConfiguration> {
     private void registerInjections(Environment environment) {
 
         UserDAO userDAO = new UserDAO();
-        AuthenticationService authenticationService = new AuthenticationService(new AuthenticationDAO(), userDAO);
+        AuthenticationDAO authenticationDAO = new AuthenticationDAO();
+        AuthenticationService authenticationService = new AuthenticationService(authenticationDAO, userDAO);
+
+        environment.jersey().register(new JsonProcessingExceptionMapper(true));
 
         environment.jersey().register(
                 new AuthenticationResource(authenticationService)
@@ -110,7 +114,7 @@ public class Main extends Application<ApiConfiguration> {
 
         environment.jersey().register(
                 new UserResource(
-                        new UserService(userDAO),
+                        new UserService(userDAO, authenticationDAO),
                         authenticationService
                 )
         );
