@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -59,7 +61,7 @@ public class Car {
     private int seats;
     private int gears;
     private EnergyLabel energyLabel;
-    private Date APK;
+    private Timestamp APK;
     private String imagePath;
     private double price;
 
@@ -83,7 +85,7 @@ public class Car {
             @JsonProperty("seats") int seats,
             @JsonProperty("gears") int gears,
             @JsonProperty("energyLabel") EnergyLabel energyLabel,
-            @JsonProperty("APK") Date APK,
+            @JsonProperty("APK") Timestamp APK,
             @JsonProperty("image_path") String imagePath,
             @JsonProperty("price") double price
             ) {
@@ -280,11 +282,11 @@ public class Car {
     }
 
     @JsonProperty
-    public Date getAPK() {
+    public Timestamp getAPK() {
         return APK;
     }
 
-    public void setAPK(Date APK) {
+    public void setAPK(Timestamp APK) {
         this.APK = APK;
     }
 

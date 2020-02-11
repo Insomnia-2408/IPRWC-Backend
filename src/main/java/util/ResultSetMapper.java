@@ -4,6 +4,7 @@ import presentation.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class ResultSetMapper {
         int seats = rs.getInt("seats");
         int gears = rs.getInt("gears");
         String energyLabel = rs.getString("energy_label");
-        Date APK = rs.getDate("APK");
+        Timestamp APK = rs.getTimestamp("APK");
         String imagePath = rs.getString("image_path");
         double price = rs.getDouble("price");
 

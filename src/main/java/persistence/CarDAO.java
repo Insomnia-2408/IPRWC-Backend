@@ -112,7 +112,7 @@ public class CarDAO implements DAO<Car> {
             statement.setInt(14, car.getSeats());
             statement.setInt(15, car.getGears());
             statement.setString(16, car.getEnergyLabel().toString());
-            statement.setTimestamp(17, (Timestamp) car.getAPK());
+            statement.setTimestamp(17, car.getAPK());
             statement.setString(18, car.getImagePath());
             statement.setDouble(19, car.getPrice());
             statement.setLong(20, car.getID());
@@ -138,9 +138,8 @@ public class CarDAO implements DAO<Car> {
         try {
 
             Connection conn = databaseConnector.getConnection();
-            statement = conn.prepareStatement("INSERT INTO car VALUES (" +
-                    "?, " + "?, " + "?, " + "?, " + "?, " + "?, " + "?, " + "?, " + "?, " + "?, " + "?, " + "?, " +
-                    "?, " + "?, " + "?, " + "?, " + "?, " + "?, "  + "?" + "?, " + ")");
+            statement = conn.prepareStatement("INSERT INTO car VALUES (?,?::car_type,?,?,?,?::transmission," +
+                    "?::fuel_type,?,?,?,?,?::body_type,?,?,?,?,?::energy_label,?,?,?)");
             statement.setLong(1, car.getID());
             statement.setString(2, car.getCarType().toString());
             statement.setString(3, car.getBrand());
@@ -158,7 +157,7 @@ public class CarDAO implements DAO<Car> {
             statement.setInt(15, car.getSeats());
             statement.setInt(16, car.getGears());
             statement.setString(17, car.getEnergyLabel().toString());
-            statement.setDate(18, (Date) car.getAPK());
+            statement.setTimestamp(18, car.getAPK());
             statement.setString(19, car.getImagePath());
             statement.setDouble(20, car.getPrice());
 
@@ -187,7 +186,7 @@ public class CarDAO implements DAO<Car> {
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                id = rs.getInt("id");
+                id = rs.getInt("max");
             }
 
             conn.close();

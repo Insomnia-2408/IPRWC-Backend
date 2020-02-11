@@ -59,6 +59,7 @@ public class CarResource implements Resource<Car> {
     @DELETE
     @Path("/{id}")
     public Response delete(@HeaderParam("token") String token, @PathParam("id") long id) {
+        System.out.println(token);
         if(authentication.isAuthorized(token, UserRole.ADMIN)) {
             return service.deleteByID(id);
         } else {
