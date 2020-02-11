@@ -12,7 +12,7 @@ public class Car {
     //Enums
     public enum CarType {
 
-        NEW, OCCASION, SHOWMODEL
+        NEW, OCCASION, SHOWMODEL, OLDTIMER
         
     }
 
