@@ -91,10 +91,10 @@ public class CarDAO implements DAO<Car> {
 
             Connection conn = databaseConnector.getConnection();
             statement = conn.prepareStatement("UPDATE car " +
-                    "SET "+ "carType=? " + "brand=? " + "mileage=? " + "options=? " + "transmission=? " +
-                    "fuelType=? " + "buildYear=? " + "doors=? " + "model=? " + "numberplate=? " + "bodyType=? " +
-                    "motorType=? " + "horsepower=? " + "seats=? " + "gears=? " + "energyLabel=? " + "APK=? " +
-                    "imagePath=? " + "price=?" + "WHERE car_id=?");
+                    "SET "+ "car_type=?::car_type, " + "brand=?, " + "mileage=?, " + "options=?, " + "transmission=?::transmission, " +
+                    "fuel_type=?::fuel_type, " + "build_year=?, " + "doors=?, " + "model=?, " + "number_plate=?, " + "body_type=?::body_type, " +
+                    "motor_type=?, " + "horsepower=?, " + "seats=?, " + "gears=?, " + "energy_label=?::energy_label, " + "APK=?, " +
+                    "image_path=?, " + "price=? " + "WHERE car_id=?");
 
             statement.setString(1, car.getCarType().toString());
             statement.setString(2, car.getBrand());
