@@ -83,7 +83,7 @@ public class AuthenticationDAO {
         try {
 
             Connection conn = databaseConnector.getConnection();
-            statement = conn.prepareStatement("DELETE * FROM session WHERE token=?");
+            statement = conn.prepareStatement("DELETE FROM session * WHERE token=?");
             statement.setString(1, token);
             int rs = statement.executeUpdate();
 
