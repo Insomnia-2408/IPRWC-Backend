@@ -36,7 +36,7 @@ public class AuthenticationDAO {
         return id;
     }
 
-    public void createFirstToken(long id, String token) {
+    public void createToken(long id, String token) {
         try {
 
             Connection conn = databaseConnector.getConnection();

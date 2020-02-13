@@ -1,11 +1,11 @@
 package service;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import persistence.AuthenticationDAO;
 import persistence.UserDAO;
 import presentation.Credentials;
 import presentation.User;
 import presentation.UserRole;
-import util.ResultSetMapper;
 import util.Verification;
 
 import javax.inject.Inject;
@@ -65,10 +65,8 @@ public class AuthenticationService {
         if(user.getUserRole() == UserRole.UNVERIFIED) {
             user.setUserRole(UserRole.USER);
             userDAO.update(user);
-            authenticationDAO.createFirstToken(user.getClientID(), token);
-        } else {
-            authenticationDAO.setToken(user.getClientID(), token);
         }
+            authenticationDAO.createToken(user.getClientID(), token);
 
     }
 
