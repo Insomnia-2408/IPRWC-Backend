@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="IPRWC" />
+        <module name="IPRWC-Backend" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="IPRWC" target="8" />
+      <module name="IPRWC-Backend" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>

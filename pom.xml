@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>3</groupId>
-    <artifactId>IPSEN2</artifactId>
+    <artifactId>IPRWC-Backend</artifactId>
     <version>1.0-SNAPSHOT</version>
     <build>
         <plugins>
@@ -100,14 +100,6 @@
             <version>4.2.2</version>
         </dependency>
 
-        <!--- JDBC connection pooling framework -->
-        <!--        <dependency>-->
-        <!--            <groupId>com.zaxxer</groupId>-->
-        <!--            <artifactId>HikariCP</artifactId>-->
-        <!--            <version>2.6.1</version>-->
-        <!--        </dependency>-->
-
-        <!--- Postgresql JDBC Driver -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
