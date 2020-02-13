@@ -1,6 +1,5 @@
 package service;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import persistence.AuthenticationDAO;
 import persistence.UserDAO;
 import presentation.Credentials;
